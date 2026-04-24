@@ -4,53 +4,50 @@ import { OpticsButton } from "../components/optics/button";
 import { SiteContainer } from "../components/SiteContainer";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
-const methodImage =
-  "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=82";
-
 const steps = [
   {
     number: "01",
-    title: "Audit",
-    copy: "Analyser le workflow actuel, les outils, les passages de relais et la perte de temps pour identifier l'endroit où un système technique crée une vraie valeur opérationnelle.",
+    title: "Diagnostic",
+    copy: "Analyser le processus actuel, les outils impliqués, les passages de relais et la charge manuelle pour identifier où un système sur mesure peut créer la meilleure valeur.",
   },
   {
     number: "02",
-    title: "Conception",
-    copy: "Définir un périmètre réaliste, les règles métier, la logique système et le chemin d'implémentation adapté à l'environnement de l'entreprise.",
+    title: "Cadrage",
+    copy: "Définir l'ambition, le périmètre, les règles métier et le modèle de fonctionnement cible afin de sécuriser une trajectoire réaliste et maîtrisée.",
   },
   {
     number: "03",
-    title: "Construction",
-    copy: "Développer le workflow, l'outil interne, l'intégration ou le composant de micro-logiciel nécessaire pour améliorer l'exécution dans la pratique.",
+    title: "Déploiement",
+    copy: "Concevoir et déployer le workflow, l'outil interne, l'intégration ou le micro-logiciel nécessaire pour améliorer l'exécution dans les conditions réelles.",
   },
   {
     number: "04",
-    title: "Optimisation",
-    copy: "Ajuster après les usages réels, traiter les cas limites et améliorer le système jusqu'à rendre le flux plus propre et plus fiable.",
+    title: "Amélioration",
+    copy: "Faire évoluer le système à partir des usages, des retours terrain et des cas limites afin de renforcer sa robustesse et sa valeur opérationnelle.",
   },
 ];
 
 const principles = [
-  "Analyse directe avant développement",
-  "Périmètre maîtrisé plutôt que transformation surdimensionnée",
-  "Utilité opérationnelle avant spectacle technique",
+  "La compréhension du processus avant la réponse technique",
+  "Un périmètre maîtrisé pour produire vite de la valeur",
+  "Des systèmes pensés pour l'usage réel et la continuité opérationnelle",
 ];
 
 export function MethodsPage() {
   useDocumentMeta(
     "Méthode | Processium",
-    "Processium suit une méthode claire: audit, conception, construction et optimisation de systèmes sur mesure pour les opérations métier."
+    "Processium suit une méthode structurée, de l'analyse au déploiement, pour traduire un besoin opérationnel en système concret et durable."
   );
 
   return (
     <>
       <PageHeader
         eyebrow="Méthode"
-        title="Un chemin maîtrisé, de l'audit opérationnel au système déployé."
-        copy="La méthode est pensée pour rester pratique. Processium part de la tâche réelle, définit le bon périmètre, construit le système puis l'affine dans des conditions d'usage réelles."
+        title="Une démarche structurée, de l'analyse au déploiement."
+        copy="Chaque intervention suit une méthode claire pour traduire un besoin opérationnel en système concret, aligné sur l'organisation, les usages et les priorités de l'entreprise."
         actions={
           <>
-            <ShuffleButton to="/contact">Commencer par un workflow</ShuffleButton>
+            <ShuffleButton to="/contact">Commencer par un processus</ShuffleButton>
             <OpticsButton to="/services" variant="decorations">
               Voir les services
             </OpticsButton>
@@ -60,46 +57,39 @@ export function MethodsPage() {
 
       <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
         <SiteContainer>
-          <div className="grid overflow-hidden bg-white shadow-[0_28px_80px_rgba(17,24,39,0.07)] xl:grid-cols-[minmax(320px,0.4fr)_minmax(0,0.6fr)]">
-            <div className="relative min-h-[320px] bg-[#101318] md:min-h-[460px]">
-              <img
-                src={methodImage}
-                alt="Atelier stratégique utilisé pour revoir et redessiner des processus métier."
-                className="h-full w-full object-cover opacity-[0.78]"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,9,18,0.08),rgba(5,9,18,0.88))]" />
-              <div className="absolute bottom-6 left-6 right-6 border-l border-white/22 pl-4 text-white md:bottom-8 md:left-8 md:right-8">
-                <p className="text-[0.76rem] font-semibold uppercase text-white/54">Style de travail</p>
-                <p className="mt-3 max-w-sm text-[1.15rem] font-semibold leading-7">
-                  La delivery technique reste attachée à la réalité opérationnelle du client.
-                </p>
+          <div className="grid gap-10 lg:grid-cols-[minmax(260px,0.32fr)_minmax(0,0.68fr)]">
+            <div className="xl:sticky xl:top-28 xl:self-start">
+              <p className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                <span className="h-px w-8 bg-[#1473e6]" />
+                Principes
+              </p>
+              <h2 className="mt-5 max-w-[12ch] text-[1.8rem] font-[650] leading-[1.05] text-[#111318] md:text-[2.35rem] lg:text-[2.9rem]">
+                Une méthode lisible, pensée pour produire vite un résultat utile.
+              </h2>
+              <p className="mt-4 max-w-md text-[0.98rem] leading-7 text-[#526073] md:leading-8">
+                Le cadre reste volontairement simple: comprendre le fonctionnement réel, définir une cible crédible, déployer un système utile puis l'améliorer à partir des usages.
+              </p>
+
+              <div className="mt-8 grid gap-3">
+                {principles.map((principle) => (
+                  <div key={principle} className="border-t border-[#dfe5ee] pt-4 text-[0.98rem] font-semibold leading-7 text-[#111318]">
+                    {principle}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="grid">
+            <div className="grid gap-0 border-t border-[#dfe5ee]">
               {steps.map((step) => (
-                <article key={step.title} className="grid gap-4 border-b border-[#edf1f6] p-6 last:border-b-0 md:grid-cols-[72px_1fr] md:p-8 lg:p-9">
+                <article key={step.title} className="grid gap-4 border-b border-[#dfe5ee] py-6 md:grid-cols-[86px_1fr] md:gap-8 md:py-8">
                   <p className="text-[0.84rem] font-semibold text-[#1473e6]">{step.number}</p>
                   <div>
-                    <h2 className="text-[2rem] font-[650] leading-[1.04] text-[#111318] md:text-[2.3rem]">{step.title}</h2>
-                    <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-[#526073]">{step.copy}</p>
+                    <h2 className="text-[1.65rem] font-[650] leading-[1.07] text-[#111318] md:text-[1.95rem] lg:text-[2.15rem]">{step.title}</h2>
+                    <p className="mt-4 max-w-2xl text-[0.98rem] leading-7 text-[#526073] md:leading-8">{step.copy}</p>
                   </div>
                 </article>
               ))}
             </div>
-          </div>
-        </SiteContainer>
-      </section>
-
-      <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
-        <SiteContainer>
-          <div className="grid gap-5 md:grid-cols-3">
-            {principles.map((principle) => (
-              <article key={principle} className="border border-[#dfe5ee] bg-white p-6 shadow-[0_22px_60px_rgba(17,24,39,0.05)] md:p-8">
-                <p className="text-[1.08rem] font-semibold leading-7 text-[#111318]">{principle}</p>
-              </article>
-            ))}
           </div>
         </SiteContainer>
       </section>

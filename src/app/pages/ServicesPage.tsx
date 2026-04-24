@@ -1,49 +1,104 @@
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router";
+import type * as React from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { PageHeader } from "../components/PageHeader";
 import { ServicesSparklesHero } from "../components/ServicesSparklesHero";
-import { ShuffleButton } from "../components/badtz/ShuffleButton";
-import { OpticsButton } from "../components/optics/button";
+import { ServicesTechStackSection } from "../components/ServicesTechStackSection";
 import { SiteContainer } from "../components/SiteContainer";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
-
-const serviceImage =
-  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=82";
 
 const services = [
   {
     title: "Automatisation de workflows",
-    copy: "Automatiser les séquences opérationnelles récurrentes comme les validations, les relances, les mises à jour de statut, les contrôles, le routage et les logiques d'exécution répétitives.",
+    copy: "Concevoir des dispositifs d'automatisation pour fiabiliser les séquences récurrentes, réduire les interventions manuelles et accélérer l'exécution.",
   },
   {
     title: "Outils internes et micro-logiciels",
-    copy: "Construire des systèmes ciblés pour des équipes internes qui ont besoin d'une interface dédiée, de règles métier précises et d'une exécution fiable sans déployer une plateforme générique.",
+    copy: "Développer des applications ciblées qui traduisent les règles métier, structurent le travail des équipes et s'intègrent à l'environnement existant.",
   },
   {
     title: "Intégrations logicielles",
-    copy: "Connecter les outils existants pour que la donnée circule sans copier-coller, sans retards de rapprochement et sans duplication manuelle.",
+    copy: "Relier les systèmes pour fluidifier la circulation de l'information, réduire les ressaisies et sécuriser les échanges de données.",
   },
   {
     title: "Reporting et opérations de données",
-    copy: "Préparer, structurer et distribuer la donnée opérationnelle pour que le reporting soit plus rapide, plus propre et moins dépendant des manipulations tableur.",
+    copy: "Structurer la collecte, la transformation et la restitution des données afin d'accélérer le reporting et de renforcer le pilotage.",
   },
   {
     title: "Optimisation de processus assistée par IA",
-    copy: "Utiliser l'IA là où elle apporte une vraie valeur pratique: extraction d'information, traitement documentaire, synthèse, catégorisation et préparation des tâches.",
+    copy: "Mobiliser l'IA lorsque son apport est concret: traitement documentaire, extraction d'information, classification, synthèse ou préparation d'actions.",
   },
 ];
 
-const deliverables = [
-  "Workflows de validation",
-  "Portails opérationnels internes",
-  "Pipelines de préparation de données",
-  "Outils de traitement documentaire",
+const serviceImages = [
+  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=82",
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=82",
+  "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=82",
+  "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1600&q=82",
+  "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=82",
 ];
+
+const deliverables = [
+  "Workflows métier ciblés",
+  "Applications internes utiles",
+  "Intégrations entre systèmes",
+  "Flux de données structurés",
+];
+
+type ServicesRevealItemProps = React.ComponentProps<"div"> & {
+  delay?: number;
+  from?: "left" | "right" | "up";
+  zoom?: boolean;
+  distance?: number;
+};
+
+function ServicesRevealItem({
+  children,
+  className,
+  delay = 0,
+  from = "up",
+  zoom = false,
+  distance = 28,
+  ...props
+}: ServicesRevealItemProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const hiddenState =
+    from === "left"
+      ? { opacity: 0, x: -distance, scale: zoom ? 1.02 : 1 }
+      : from === "right"
+        ? { opacity: 0, x: distance, scale: zoom ? 1.02 : 1 }
+        : { opacity: 0, y: distance * 0.8, scale: zoom ? 1.02 : 1 };
+
+  const visibleState = from === "left" || from === "right"
+    ? { opacity: 1, x: 0, scale: 1 }
+    : { opacity: 1, y: 0, scale: 1 };
+
+  return (
+    <motion.div
+      className={className}
+      initial={prefersReducedMotion ? false : hiddenState}
+      whileInView={prefersReducedMotion ? undefined : visibleState}
+      viewport={{ once: false, amount: 0.24, margin: "0px 0px -6% 0px" }}
+      transition={
+        prefersReducedMotion
+          ? undefined
+          : {
+              duration: zoom ? 0.7 : 0.62,
+              delay,
+              ease: [0.22, 1, 0.36, 1],
+            }
+      }
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export function ServicesPage() {
   useDocumentMeta(
     "Services | Processium",
-    "Découvrez les services Processium: automatisation de workflow, outils internes, intégrations logicielles, reporting et optimisation opérationnelle assistée par IA."
+    "Découvrez les services Processium: une offre conçue pour simplifier les processus, sécuriser les flux et améliorer la qualité d'exécution."
   );
 
   return (
@@ -55,97 +110,84 @@ export function ServicesPage() {
       <PageHeader
         className="pt-8 md:pt-10 lg:pt-12"
         eyebrow="Services"
-        title="Des solutions techniques dessinées autour des workflows réels."
-        copy="Processium ne vend pas une stack générique. Chaque intervention part d'un point de blocage opérationnel et se termine par un système technique conçu pour l'entreprise qui l'utilise."
-        actions={
-          <>
-            <ShuffleButton to="/contact">Échanger sur un besoin</ShuffleButton>
-            <OpticsButton to="/domains" variant="decorations">
-              Voir les domaines
-            </OpticsButton>
-          </>
-        }
+        title="Une offre conçue pour transformer les processus et renforcer l'exécution."
+        copy="Processium accompagne les entreprises dans la conception de systèmes sur mesure destinés à simplifier les processus, sécuriser les flux et améliorer la performance opérationnelle."
       />
 
       <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
         <SiteContainer>
-          <div className="grid gap-5 lg:grid-cols-2">
-            {services.map((service, index) => (
-              <article key={service.title} className="border border-[#dfe5ee] bg-white p-6 shadow-[0_22px_60px_rgba(17,24,39,0.05)] md:p-8 lg:p-9">
-                <p className="text-[0.78rem] font-semibold text-[#1473e6]">0{index + 1}</p>
-                <h2 className="mt-8 max-w-[14ch] text-[2rem] font-[650] leading-[1.04] text-[#111318] md:text-[2.45rem]">
-                  {service.title}
-                </h2>
-                <p className="mt-5 max-w-2xl text-[1rem] leading-8 text-[#526073]">{service.copy}</p>
-              </article>
-            ))}
-          </div>
-        </SiteContainer>
-      </section>
-
-      <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
-        <SiteContainer>
-          <div className="grid overflow-hidden bg-white shadow-[0_28px_80px_rgba(17,24,39,0.07)] xl:grid-cols-[minmax(320px,0.42fr)_minmax(0,0.58fr)]">
-            <div className="relative min-h-[280px] bg-[#111318] md:min-h-[380px]">
-              <img
-                src={serviceImage}
-                alt="Équipe numérique coordonnant des systèmes internes structurés."
-                className="h-full w-full object-cover opacity-[0.78]"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,9,18,0.1),rgba(5,9,18,0.86))]" />
-            </div>
-
-            <div className="grid gap-8 p-6 md:p-8 lg:p-10">
-              <div>
-                <p className="border-l-2 border-[#1473e6] pl-3 text-[0.78rem] font-semibold uppercase text-[#667085]">
-                  Livrables typiques
-                </p>
-                <h2 className="mt-6 max-w-[12ch] text-[2.1rem] font-[650] leading-[1.04] text-[#111318] md:text-[3rem]">
-                  Construits pour s'intégrer à l'existant, pas pour tout remplacer d'un coup.
-                </h2>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {deliverables.map((item) => (
-                  <div key={item} className="border-l border-[#dfe5ee] pl-4">
-                    <p className="text-[1rem] font-semibold leading-6 text-[#111318]">{item}</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="max-w-2xl text-[1rem] leading-8 text-[#526073]">
-                L'objectif n'est pas d'introduire de la complexité inutile. L'objectif est d'enlever la friction, de fiabiliser le flux et de réduire la coordination manuelle nécessaire.
+          <div className="grid gap-10 lg:grid-cols-[minmax(260px,0.28fr)_minmax(0,0.72fr)]">
+            <ServicesRevealItem className="lg:pt-2" from="left">
+              <p className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                <span className="h-px w-8 bg-[#1473e6]" />
+                Capacités
               </p>
-            </div>
-          </div>
-        </SiteContainer>
-      </section>
-
-      <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
-        <SiteContainer>
-          <div className="grid gap-6 border border-[#dfe5ee] bg-white p-6 md:grid-cols-[0.62fr_0.38fr] md:p-8 lg:p-10">
-            <div>
-              <p className="border-l-2 border-[#1473e6] pl-3 text-[0.78rem] font-semibold uppercase text-[#667085]">
-                Continuer
-              </p>
-              <h2 className="mt-6 max-w-[11ch] text-[2rem] font-[650] leading-[1.03] text-[#111318] md:text-[3rem]">
-                Voir où ces services s'appliquent.
+              <h2 className="mt-5 max-w-[11ch] text-[1.8rem] font-[650] leading-[1.05] text-[#111318] md:text-[2.4rem] lg:text-[2.9rem]">
+                Une offre pensée pour améliorer le fonctionnement au quotidien.
               </h2>
-            </div>
+              <p className="mt-4 max-w-md text-[0.98rem] leading-7 text-[#526073] md:leading-8">
+                Les interventions combinent lecture du processus, construction technique et mise en oeuvre concrète, avec un même objectif: rendre l'exécution plus fluide et plus fiable.
+              </p>
+            </ServicesRevealItem>
 
-            <div className="grid gap-4">
-              <Link to="/domains" className="group flex items-center justify-between border-b border-[#edf1f6] pb-4 text-[1rem] font-semibold text-[#111318]">
-                Domaines et expertises
-                <ArrowRight size={18} className="text-[#1473e6] transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link to="/methods" className="group flex items-center justify-between border-b border-[#edf1f6] pb-4 text-[1rem] font-semibold text-[#111318]">
-                Méthode de delivery
-                <ArrowRight size={18} className="text-[#1473e6] transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <ShuffleButton to="/contact" className="mt-2 w-full justify-center">
-                Lancer la conversation
-              </ShuffleButton>
+            <div className="grid gap-0 border-t border-[#dfe5ee]">
+              {services.map((service, index) => (
+                <article
+                  key={service.title}
+                  className="grid gap-5 border-b border-[#dfe5ee] py-6 md:gap-6 md:py-8 lg:grid-cols-[72px_minmax(0,0.56fr)_minmax(220px,0.44fr)] lg:items-start"
+                >
+                  <p className="text-[0.84rem] font-semibold text-[#1473e6]">0{index + 1}</p>
+
+                  <ServicesRevealItem from={index % 2 === 0 ? "left" : "right"} delay={index * 0.03}>
+                    <h2 className="max-w-[16ch] text-[1.55rem] font-[650] leading-[1.08] text-[#111318] md:text-[1.85rem] lg:text-[2.1rem]">
+                      {service.title}
+                    </h2>
+                    <p className="mt-4 max-w-3xl text-[0.98rem] leading-7 text-[#526073] md:leading-8">{service.copy}</p>
+                  </ServicesRevealItem>
+
+                  <ServicesRevealItem from={index % 2 === 0 ? "right" : "left"} zoom delay={index * 0.04}>
+                    <figure className="overflow-hidden border border-[#dfe5ee]">
+                      <img
+                        src={serviceImages[index]}
+                        alt={service.title}
+                        className="aspect-[1.18/1] h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                    </figure>
+                  </ServicesRevealItem>
+                </article>
+              ))}
+            </div>
+          </div>
+        </SiteContainer>
+      </section>
+
+      <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
+        <SiteContainer>
+          <ServicesTechStackSection />
+        </SiteContainer>
+      </section>
+
+      <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
+        <SiteContainer>
+          <div className="grid gap-8 border-t border-[#dfe5ee] pt-8 lg:grid-cols-[0.42fr_0.58fr] lg:pt-10">
+            <ServicesRevealItem from="left">
+              <h2 className="max-w-[12ch] text-[1.8rem] font-[650] leading-[1.05] text-[#111318] md:text-[2.4rem] lg:text-[2.9rem]">
+                Une réponse ajustée au besoin réel.
+              </h2>
+              <p className="mt-4 max-w-lg text-[0.98rem] leading-7 text-[#526073] md:leading-8">
+                Workflow, application interne, intégration ou flux de données: chaque intervention prend la forme la plus utile pour le processus concerné.
+              </p>
+            </ServicesRevealItem>
+
+            <div className="grid gap-0 border-t border-[#dfe5ee] sm:grid-cols-2 sm:border-t-0 sm:border-l sm:border-[#dfe5ee] sm:pl-8 lg:pl-10">
+              {deliverables.map((item, index) => (
+                <ServicesRevealItem key={item} from={index % 2 === 0 ? "right" : "left"} delay={index * 0.03}>
+                  <div className="border-b border-[#dfe5ee] py-5 pr-4 text-[1rem] font-semibold leading-7 text-[#111318] sm:mr-6">
+                    {item}
+                  </div>
+                </ServicesRevealItem>
+              ))}
             </div>
           </div>
         </SiteContainer>

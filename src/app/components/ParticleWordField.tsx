@@ -151,7 +151,7 @@ function createParticleDots(
 }
 
 export function ParticleWordField({
-  accentColor = "rgba(32, 54, 98, <alpha>)",
+  accentColor = "rgba(20, 115, 230, <alpha>)",
   accentFrequency = 4,
   accentStartIndex = null,
   alphaMinAccent = 0.36,

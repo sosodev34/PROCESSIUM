@@ -6,6 +6,7 @@ import { ParticleWordField } from "./ParticleWordField";
 interface ParticleTextIntroProps {
   onComplete: () => void;
   onRevealStart?: () => void;
+  theme?: "light" | "dark";
 }
 
 const INTRO_WORD = "PROCESSIUM";
@@ -45,7 +46,7 @@ function measureIntroWordLayout(viewportWidth: number, viewportHeight: number) {
   };
 }
 
-export function ParticleTextIntro({ onComplete, onRevealStart }: ParticleTextIntroProps) {
+export function ParticleTextIntro({ onComplete, onRevealStart, theme = "light" }: ParticleTextIntroProps) {
   const prefersReducedMotion = useReducedMotion();
   const hasTriggeredRevealRef = React.useRef(false);
   const [brandGhostWidth, setBrandGhostWidth] = React.useState(520);
@@ -57,15 +58,16 @@ export function ParticleTextIntro({ onComplete, onRevealStart }: ParticleTextInt
   const [brandTarget, setBrandTarget] = React.useState({ scale: 1, x: 0, y: 0 });
   const [isExiting, setIsExiting] = React.useState(false);
   const [isWordResolved, setIsWordResolved] = React.useState(false);
-  const particleFormationDuration = prefersReducedMotion ? 1600 : 4300;
-  const solidWordDelay = prefersReducedMotion ? 1100 : 3600;
-  const exitDelay = prefersReducedMotion ? 3400 : 5450;
+  const particleFormationDuration = prefersReducedMotion ? 1450 : 3920;
+  const solidWordDelay = prefersReducedMotion ? 980 : 3250;
+  const exitDelay = prefersReducedMotion ? 3200 : 5050;
   const overlayExitDuration = prefersReducedMotion ? 0.22 : 0.44;
   const brandTravelDuration = prefersReducedMotion ? 0.2 : 0.48;
   const logoRevealDuration = prefersReducedMotion ? 0.16 : 0.36;
-  const solidWordRevealDuration = prefersReducedMotion ? 0.18 : 0.72;
-  const particleResolveFadeDuration = prefersReducedMotion ? 0.18 : 0.86;
+  const solidWordRevealDuration = prefersReducedMotion ? 0.16 : 0.62;
+  const particleResolveFadeDuration = prefersReducedMotion ? 0.16 : 0.74;
   const completeDelay = prefersReducedMotion ? 220 : 460;
+  const isDarkTheme = theme === "dark";
 
   React.useEffect(() => {
     const measureBrandTarget = () => {
@@ -157,9 +159,27 @@ export function ParticleTextIntro({ onComplete, onRevealStart }: ParticleTextInt
       transition={{ duration: overlayExitDuration, ease: [0.22, 1, 0.36, 1] }}
       className="pointer-events-none fixed inset-0 z-[55] overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(32,54,98,0.12),transparent_30%),linear-gradient(180deg,rgba(247,248,251,0.92),rgba(247,248,251,0.74))] backdrop-blur-[10px]" />
-      <div className="absolute inset-0 opacity-[0.3] [background-image:linear-gradient(rgba(17,19,24,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(17,19,24,0.05)_1px,transparent_1px)] [background-position:center] [background-size:80px_80px]" />
-      <div className="absolute inset-x-0 top-0 h-[44vh] bg-[radial-gradient(circle_at_50%_0%,rgba(32,54,98,0.14),transparent_70%)]" />
+      <div
+        className={`absolute inset-0 backdrop-blur-[10px] ${
+          isDarkTheme
+            ? "bg-[radial-gradient(circle_at_50%_38%,rgba(20,115,230,0.16),transparent_30%),linear-gradient(180deg,rgba(7,11,18,0.96),rgba(10,16,27,0.9))]"
+            : "bg-[radial-gradient(circle_at_50%_38%,rgba(32,54,98,0.12),transparent_30%),linear-gradient(180deg,rgba(247,248,251,0.92),rgba(247,248,251,0.74))]"
+        }`}
+      />
+      <div
+        className={`absolute inset-0 [background-position:center] [background-size:80px_80px] ${
+          isDarkTheme
+            ? "opacity-[0.24] [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)]"
+            : "opacity-[0.3] [background-image:linear-gradient(rgba(17,19,24,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(17,19,24,0.05)_1px,transparent_1px)]"
+        }`}
+      />
+      <div
+        className={`absolute inset-x-0 top-0 h-[44vh] ${
+          isDarkTheme
+            ? "bg-[radial-gradient(circle_at_50%_0%,rgba(20,115,230,0.18),transparent_70%)]"
+            : "bg-[radial-gradient(circle_at_50%_0%,rgba(32,54,98,0.14),transparent_70%)]"
+        }`}
+      />
 
       <motion.div
         initial={false}
@@ -173,12 +193,12 @@ export function ParticleTextIntro({ onComplete, onRevealStart }: ParticleTextInt
       >
         <ParticleWordField
           word={INTRO_WORD}
-          accentColor="rgba(32, 54, 98, <alpha>)"
+          accentColor={isDarkTheme ? "rgba(78, 155, 255, <alpha>)" : "rgba(20, 115, 230, <alpha>)"}
           accentStartIndex={INTRO_ACCENT_START}
-          alphaMinAccent={0.5}
-          alphaMinBase={0.4}
-          backgroundFill="rgba(5, 7, 12, 0.03)"
-          baseColor="rgba(11, 15, 23, <alpha>)"
+          alphaMinAccent={0.62}
+          alphaMinBase={isDarkTheme ? 0.52 : 0.4}
+          backgroundFill={isDarkTheme ? "rgba(255, 255, 255, 0.015)" : "rgba(5, 7, 12, 0.03)"}
+          baseColor={isDarkTheme ? "rgba(244, 247, 251, <alpha>)" : "rgba(11, 15, 23, <alpha>)"}
           formationDurationMs={particleFormationDuration}
           className="absolute inset-0"
           interactive
@@ -240,34 +260,40 @@ export function ParticleTextIntro({ onComplete, onRevealStart }: ParticleTextInt
         <span
           className="block whitespace-nowrap font-[700] uppercase leading-none text-transparent"
           style={{
-            backgroundImage: `linear-gradient(90deg, #0b0f17 0%, #0b0f17 ${resolvedWordLayout.accentSplitPercent}%, #203662 ${resolvedWordLayout.accentSplitPercent}%, #203662 100%)`,
+            backgroundImage: isDarkTheme
+              ? `linear-gradient(90deg, #f3f6fb 0%, #f3f6fb ${resolvedWordLayout.accentSplitPercent}%, #4e9bff ${resolvedWordLayout.accentSplitPercent}%, #4e9bff 100%)`
+              : `linear-gradient(90deg, #0b0f17 0%, #0b0f17 ${resolvedWordLayout.accentSplitPercent}%, #1473e6 ${resolvedWordLayout.accentSplitPercent}%, #1473e6 100%)`,
             backgroundClip: "text",
             fontFamily: "Inter, Arial, sans-serif",
             fontSize: `${resolvedWordLayout.fontSize}px`,
             WebkitBackgroundClip: "text",
-            textShadow: isWordResolved ? "0 0 18px rgba(32,54,98,0.08)" : "none",
+            textShadow: isWordResolved
+              ? isDarkTheme
+                ? "0 0 22px rgba(78,155,255,0.18)"
+                : "0 0 18px rgba(20,115,230,0.12)"
+              : "none",
           }}
         >
           {INTRO_WORD}
         </span>
       </motion.div>
 
-      <div className="relative z-10 flex h-full flex-col justify-between p-5 text-[#111318] md:p-8">
+      <div className={`relative z-10 flex h-full flex-col justify-between p-5 md:p-8 ${isDarkTheme ? "text-[#f3f6fb]" : "text-[#111318]"}`}>
         <div className="flex items-start justify-between gap-6">
-          <div className="border-l border-[#cbd5e4] pl-4">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[#667085]">
+          <div className={`border-l pl-4 ${isDarkTheme ? "border-white/14" : "border-[#cbd5e4]"}`}>
+            <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.14em] ${isDarkTheme ? "text-[#9fb0c9]" : "text-[#667085]"}`}>
               Processium
             </p>
-            <p className="mt-2 text-[0.92rem] leading-6 text-[#526073]">Systèmes sur mesure pour les opérations métier</p>
+            <p className={`mt-2 text-[0.92rem] leading-6 ${isDarkTheme ? "text-[#b4c1d4]" : "text-[#526073]"}`}>Systèmes sur mesure pour transformer les opérations</p>
           </div>
-          <p className="hidden text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[#667085] sm:block">
+          <p className={`hidden text-[0.72rem] font-semibold uppercase tracking-[0.14em] sm:block ${isDarkTheme ? "text-[#9fb0c9]" : "text-[#667085]"}`}>
             Entrée du site
           </p>
         </div>
 
         <div className="grid gap-4 self-start pb-6 md:pb-10">
-          <p className="max-w-[28rem] text-[0.92rem] leading-7 text-[#526073] md:text-[1rem]">
-            Automatisations ciblées, micro-logiciels et outils internes conçus pour réduire le répétitif et clarifier l'exécution.
+          <p className={`max-w-[28rem] text-[0.92rem] leading-7 md:text-[1rem] ${isDarkTheme ? "text-[#b4c1d4]" : "text-[#526073]"}`}>
+            Automatisations ciblées, outils internes et workflows structurés pour simplifier l'exécution et améliorer la fluidité opérationnelle.
           </p>
         </div>
       </div>

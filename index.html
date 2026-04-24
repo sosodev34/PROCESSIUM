@@ -8,9 +8,30 @@
         name="description"
         content="Processium conçoit des systèmes techniques sur mesure, des micro-logiciels et des automatisations de workflow pour réduire le travail manuel et améliorer les opérations."
       />
+      <link rel="icon" type="image/png" href="/processium-mark.png" />
       <title>Processium | Systèmes techniques sur mesure</title>
+      <script>
+        (() => {
+          try {
+            const storageKey = "processium-site-theme";
+            const storedTheme = window.localStorage.getItem(storageKey);
+            const resolvedTheme =
+              storedTheme === "light" || storedTheme === "dark"
+                ? storedTheme
+                : window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "dark"
+                  : "light";
+
+            document.documentElement.dataset.siteTheme = resolvedTheme;
+            document.documentElement.classList.toggle("dark", resolvedTheme === "dark");
+          } catch (error) {
+            document.documentElement.dataset.siteTheme = "light";
+          }
+        })();
+      </script>
       <style>
         html, body { height: 100%; margin: 0; background: #f7f8fb; color: #111318; }
+        html[data-site-theme="dark"], html[data-site-theme="dark"] body { background: #0b1018; color: #f3f6fb; }
         #root { height: 100%; }
       </style>
     </head>

@@ -3,31 +3,32 @@ import { PageHeader } from "../components/PageHeader";
 import { ShuffleButton } from "../components/badtz/ShuffleButton";
 import { OpticsButton } from "../components/optics/button";
 import { SiteContainer } from "../components/SiteContainer";
+import { cn } from "../components/ui/utils";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
 const innovationAreas = [
   {
     title: "Intelligence artificielle",
-    copy: "L'IA compte lorsqu'elle raccourcit le travail opérationnel: traitement documentaire, extraction d'information, préparation de tâches, catégorisation et support à l'exécution interne.",
+    copy: "L'intelligence artificielle a de la valeur lorsqu'elle accélère le traitement de l'information, réduit la charge manuelle et soutient des décisions mieux préparées.",
   },
   {
     title: "Systèmes d'automatisation",
-    copy: "Les moteurs de workflow modernes, couches d'orchestration et systèmes pilotés par événements rendent l'exécution des processus plus fiable entre outils et équipes.",
+    copy: "Les couches d'orchestration, moteurs de workflow et architectures pilotées par événements permettent de rendre les processus plus continus, plus fiables et mieux gouvernés.",
   },
   {
     title: "Blockchain et traçabilité",
-    copy: "Processium traite la blockchain comme un sujet d'infrastructure sérieux, pertinent là où l'auditabilité, la preuve, la traçabilité ou la validation multi-acteurs ont un vrai sens.",
+    copy: "Ces technologies deviennent pertinentes lorsque la preuve, l'auditabilité, la validation multi-acteurs ou la traçabilité constituent des exigences métier réelles.",
   },
   {
     title: "Infrastructures numériques émergentes",
-    copy: "APIs, couches de données structurées, interfaces intelligentes et architectures système modernes continuent de redessiner la manière dont les opérations métier peuvent être pensées.",
+    copy: "Les APIs, architectures data, interfaces intelligentes et nouveaux modèles d'intégration ouvrent la voie à des opérations plus modulaires, plus visibles et plus adaptables.",
   },
 ];
 
 const practicalPositioning = [
-  "Aucune technologie n'est adoptée pour l'image seule.",
-  "L'innovation est filtrée par l'utilité opérationnelle.",
-  "L'objectif reste la clarté métier, pas le théâtre de la nouveauté.",
+  "Une technologie n'a d'intérêt que si elle sert une ambition métier claire.",
+  "La nouveauté n'est retenue que lorsqu'elle améliore réellement le fonctionnement.",
+  "Le critère final reste l'utilité opérationnelle.",
 ];
 
 const innovationParticleWords = ["INNOVATION", "IA", "AUTOMATISATION", "BLOCKCHAIN", "INFRASTRUCTURE"];
@@ -35,7 +36,7 @@ const innovationParticleWords = ["INNOVATION", "IA", "AUTOMATISATION", "BLOCKCHA
 export function InnovationPage() {
   useDocumentMeta(
     "Innovation | Processium",
-    "Processium suit l'IA, les systèmes d'automatisation, la blockchain et les infrastructures numériques émergentes avec une lecture pratique orientée métier."
+    "Processium observe les technologies émergentes avec une lecture orientée impact métier, exécution et transformation opérationnelle."
   );
 
   return (
@@ -47,11 +48,11 @@ export function InnovationPage() {
       <PageHeader
         className="pt-8 md:pt-10 lg:pt-12"
         eyebrow="Innovation"
-        title="Une technologie tournée vers l'avant, filtrée par l'opérationnel."
-        copy="Processium suit l'évolution technologique de près, mais avec une ligne claire: l'innovation ne compte que lorsqu'elle améliore l'exécution, le contrôle, la traçabilité ou la prise de décision dans l'entreprise."
+        title="Une lecture de l'innovation orientée impact."
+        copy="Processium observe les technologies susceptibles de transformer durablement les opérations et les évalue à l'aune de leur impact sur l'exécution, la décision et la résilience."
         actions={
           <>
-            <ShuffleButton to="/contact">Échanger sur un besoin d'avenir</ShuffleButton>
+            <ShuffleButton to="/contact">Évoquer un enjeu d'avenir</ShuffleButton>
             <OpticsButton to="/services" variant="decorations">
               Voir les services actuels
             </OpticsButton>
@@ -61,32 +62,33 @@ export function InnovationPage() {
 
       <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
         <SiteContainer>
-          <div className="grid gap-8 border border-[#dfe5ee] bg-white p-6 shadow-[0_24px_70px_rgba(17,24,39,0.05)] md:p-8 lg:grid-cols-[0.56fr_0.44fr] lg:p-10">
-            <div>
-              <p className="border-l-2 border-[#1473e6] pl-3 text-[0.78rem] font-semibold uppercase text-[#667085]">
+          <div className="grid gap-10 lg:grid-cols-[minmax(260px,0.34fr)_minmax(0,0.66fr)]">
+            <div className="lg:pt-2">
+              <p className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                <span className="h-px w-8 bg-[#1473e6]" />
                 Horizon technologique
               </p>
-              <h2 className="mt-6 max-w-[11ch] text-[2.1rem] font-[650] leading-[1.04] text-[#111318] md:text-[3rem]">
-                Processium se cale sur la prochaine génération de technologie métier.
+              <h2 className="mt-5 max-w-[11ch] text-[1.8rem] font-[650] leading-[1.05] text-[#111318] md:text-[2.4rem] lg:text-[2.9rem]">
+                Observer l'innovation avec un prisme d'utilité.
               </h2>
-              <p className="mt-5 max-w-2xl text-[1rem] leading-8 text-[#526073]">
-                La perspective dépasse les seuls blocages de workflow actuels. Elle inclut aussi les technologies qui redessinent déjà la manière dont les entreprises structureront l'opérationnel, la confiance, l'automatisation et les couches de décision numériques.
+              <p className="mt-4 max-w-md text-[0.98rem] leading-7 text-[#526073] md:leading-8">
+                Processium s'intéresse aux technologies capables d'améliorer durablement l'exécution, la circulation de l'information et la qualité de décision. L'enjeu n'est pas d'ajouter de la nouveauté, mais de retenir ce qui devient réellement pertinent.
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-              <div className="border-l border-[#dfe5ee] pl-4">
-                <p className="text-[0.74rem] font-semibold uppercase text-[#1473e6]">IA</p>
-                <p className="mt-3 text-[1rem] font-semibold leading-6 text-[#111318]">Une intelligence opérationnelle, pas un discours flou.</p>
-              </div>
-              <div className="border-l border-[#dfe5ee] pl-4">
-                <p className="text-[0.74rem] font-semibold uppercase text-[#1473e6]">Systèmes</p>
-                <p className="mt-3 text-[1rem] font-semibold leading-6 text-[#111318]">Une orchestration structurée entre outils.</p>
-              </div>
-              <div className="border-l border-[#dfe5ee] pl-4">
-                <p className="text-[0.74rem] font-semibold uppercase text-[#1473e6]">Infrastructure</p>
-                <p className="mt-3 text-[1rem] font-semibold leading-6 text-[#111318]">Des fondations numériques pensées pour le cycle qui vient.</p>
-              </div>
+            <div className="grid gap-0 border-t border-[#dfe5ee]">
+              {innovationAreas.map((area, index) => (
+                <article
+                  key={area.title}
+                  className={cn(
+                    "grid gap-4 border-b border-[#dfe5ee] py-6 lg:grid-cols-[220px_1fr] lg:gap-8 md:py-8",
+                    index === 0 ? "bg-[linear-gradient(90deg,#f9fbff,transparent_62%)]" : ""
+                  )}
+                >
+                  <h2 className="max-w-[13ch] text-[1.35rem] font-[650] leading-[1.08] text-[#111318] md:text-[1.6rem] lg:text-[1.8rem]">{area.title}</h2>
+                  <p className="max-w-2xl text-[0.98rem] leading-7 text-[#526073] md:leading-8">{area.copy}</p>
+                </article>
+              ))}
             </div>
           </div>
         </SiteContainer>
@@ -94,40 +96,24 @@ export function InnovationPage() {
 
       <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
         <SiteContainer>
-          <div className="grid gap-5 md:grid-cols-2">
-            {innovationAreas.map((area) => (
-              <article key={area.title} className="border border-[#dfe5ee] bg-white p-6 shadow-[0_22px_60px_rgba(17,24,39,0.05)] md:p-8 lg:p-9">
-                <h2 className="max-w-[13ch] text-[2rem] font-[650] leading-[1.04] text-[#111318] md:text-[2.45rem]">
-                  {area.title}
-                </h2>
-                <p className="mt-5 max-w-2xl text-[1rem] leading-8 text-[#526073]">{area.copy}</p>
-              </article>
-            ))}
-          </div>
-        </SiteContainer>
-      </section>
-
-      <section className="bg-[#f7f8fb] py-8 md:py-12 lg:py-16">
-        <SiteContainer>
-          <div className="grid gap-8 border border-[#dfe5ee] bg-white p-6 shadow-[0_26px_80px_rgba(17,24,39,0.06)] md:p-8 lg:grid-cols-[0.44fr_0.56fr] lg:p-10">
+          <div className="grid gap-8 border-t border-[#dfe5ee] pt-8 lg:grid-cols-[0.34fr_0.66fr]">
             <div>
-              <p className="border-l-2 border-[#1473e6] pl-3 text-[0.78rem] font-semibold uppercase text-[#667085]">
+              <p className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                <span className="h-px w-8 bg-[#1473e6]" />
                 Positionnement
               </p>
-              <h2 className="mt-6 max-w-[12ch] text-[2rem] font-[650] leading-[1.04] text-[#111318] md:text-[3rem]">
-                Sérieux, tourné vers l'avenir, mais toujours ancré dans la réalité métier.
+              <h2 className="mt-5 max-w-[12ch] text-[1.8rem] font-[650] leading-[1.05] text-[#111318] md:text-[2.3rem] lg:text-[2.8rem]">
+                Une veille exigeante, mais toujours ancrée dans le réel.
               </h2>
             </div>
 
-            <div className="grid gap-5">
-              {practicalPositioning.map((item) => (
-                <div key={item} className="border-l border-[#dfe5ee] pl-4">
-                  <p className="text-[1rem] font-semibold leading-7 text-[#111318]">{item}</p>
-                </div>
+            <div className="grid gap-0 border-t border-[#dfe5ee] lg:grid-cols-3 lg:border-t-0 lg:border-l lg:border-[#dfe5ee] lg:pl-8">
+              {practicalPositioning.map((item, index) => (
+                <article key={item} className="border-b border-[#dfe5ee] py-5 lg:mr-6">
+                  <p className="text-[0.82rem] font-semibold text-[#1473e6]">0{index + 1}</p>
+                  <p className="mt-4 text-[1rem] font-semibold leading-7 text-[#111318]">{item}</p>
+                </article>
               ))}
-              <p className="mt-2 max-w-2xl text-[1rem] leading-8 text-[#526073]">
-                C'est ce qui aligne la page innovation avec le reste du site. Le message n'est pas que Processium suit les tendances. Le message est que Processium comprend où va la technologie métier et veut y construire des systèmes utiles.
-              </p>
             </div>
           </div>
         </SiteContainer>

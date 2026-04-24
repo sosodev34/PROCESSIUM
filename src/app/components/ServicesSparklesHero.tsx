@@ -22,20 +22,23 @@ export function ServicesSparklesHero({
       <h1 className="relative z-20 text-center text-3xl font-bold text-white md:text-7xl lg:text-9xl">
         {title}
       </h1>
-      <div className="relative h-40 w-[40rem]">
-        <div className="absolute inset-x-20 top-0 h-[2px] w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm" />
-        <div className="absolute inset-x-20 top-0 h-px w-3/4 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-        <div className="absolute inset-x-60 top-0 h-[5px] w-1/4 bg-gradient-to-r from-transparent via-sky-500 to-transparent blur-sm" />
-        <div className="absolute inset-x-60 top-0 h-px w-1/4 bg-gradient-to-r from-transparent via-sky-500 to-transparent" />
-
+      <div className="relative h-40 w-[40rem] max-w-full">
         <SparklesCore
           background="transparent"
           minSize={0.4}
-          maxSize={1}
-          particleDensity={1200}
+          maxSize={1.2}
+          particleDensity={1400}
           className="h-full w-full"
           particleColor="#FFFFFF"
         />
+
+        <div className="absolute inset-x-0 top-0 z-10 m-auto h-[1px] w-full bg-transparent blur-sm sm:w-[30rem] md:w-[36rem] lg:w-[40rem]">
+          <div className="h-full w-full bg-gradient-to-r from-transparent via-[#2b7fff] to-transparent" />
+        </div>
+
+        <div className="absolute inset-x-0 top-0 z-10 m-auto h-px w-full bg-transparent sm:w-[30rem] md:w-[36rem] lg:w-[40rem]">
+          <div className="h-full w-full bg-gradient-to-r from-transparent via-[#4b9cff] to-transparent" />
+        </div>
 
         <div className="absolute inset-0 h-full w-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]" />
       </div>

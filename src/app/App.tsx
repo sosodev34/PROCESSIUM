@@ -9,18 +9,34 @@ import { SiteFooter } from "./components/SiteFooter";
 import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
 import { DomainsPage } from "./pages/DomainsPage";
+import { FounderPage } from "./pages/FounderPage";
 import { HomePage } from "./pages/HomePage";
 import { InnovationPage } from "./pages/InnovationPage";
 import { MethodsPage } from "./pages/MethodsPage";
 import { ServicesPage } from "./pages/ServicesPage";
+import { ValuesPage } from "./pages/ValuesPage";
 
 type IntroPhase = "intro" | "revealing" | "ready";
+type SiteTheme = "light" | "dark";
+const THEME_STORAGE_KEY = "processium-site-theme";
+
+function resolveInitialTheme(): SiteTheme {
+  if (typeof window === "undefined") return "light";
+
+  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (storedTheme === "light" || storedTheme === "dark") {
+    return storedTheme;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
 function SiteFrame() {
   const location = useLocation();
   const hasPlayedIntroRef = useRef(location.pathname !== "/");
   const lenisRef = useRef<Lenis | null>(null);
   const [introPhase, setIntroPhase] = useState<IntroPhase>(location.pathname === "/" ? "intro" : "ready");
+  const [theme, setTheme] = useState<SiteTheme>(resolveInitialTheme);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -28,8 +44,8 @@ function SiteFrame() {
     }
 
     const lenis = new Lenis({
-      duration: 1.02,
-      easing: (time) => Math.min(1, 1.001 - 2 ** (-10 * time)),
+      duration: 1.18,
+      easing: (time) => 1 - Math.pow(1 - time, 3.2),
       smoothWheel: true,
       syncTouch: false,
     });
@@ -74,6 +90,13 @@ function SiteFrame() {
     setIntroPhase("intro");
   }, [location.pathname]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.siteTheme = theme;
+    root.classList.toggle("dark", theme === "dark");
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
   const handleIntroRevealStart = useCallback(() => {
     setIntroPhase((currentPhase) => (currentPhase === "intro" ? "revealing" : currentPhase));
   }, []);
@@ -83,20 +106,34 @@ function SiteFrame() {
     setIntroPhase("ready");
   }, []);
 
+  const handleThemeToggle = useCallback(() => {
+    setTheme((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
+  }, []);
+
   const siteIsEntering = introPhase !== "intro";
   const shouldShowIntro = location.pathname === "/" && !hasPlayedIntroRef.current && introPhase !== "ready";
   const pageBackground =
-    introPhase === "intro" ? "#f3f6fb" : introPhase === "revealing" ? "#f5f7fb" : "#f7f8fb";
+    theme === "dark"
+      ? introPhase === "intro"
+        ? "#060b12"
+        : introPhase === "revealing"
+          ? "#0a111b"
+          : "#0b1018"
+      : introPhase === "intro"
+        ? "#f3f6fb"
+        : introPhase === "revealing"
+          ? "#f5f7fb"
+          : "#f7f8fb";
 
   return (
     <motion.div
       initial={false}
       animate={{ backgroundColor: pageBackground }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="relative min-h-screen overflow-x-hidden text-[#111318] antialiased"
+      className="relative min-h-screen overflow-x-hidden antialiased"
     >
       <ScrollProgress />
-      <Navigation entrancePhase={introPhase} />
+      <Navigation entrancePhase={introPhase} theme={theme} onToggleTheme={handleThemeToggle} />
 
       <motion.div
         initial={false}
@@ -111,13 +148,14 @@ function SiteFrame() {
         <main key={location.pathname}>
           <Outlet />
         </main>
-        <SiteFooter />
+        {location.pathname === "/fondateur" ? null : <SiteFooter />}
       </motion.div>
 
       {shouldShowIntro ? (
         <ParticleTextIntro
           onRevealStart={handleIntroRevealStart}
           onComplete={handleIntroComplete}
+          theme={theme}
         />
       ) : null}
     </motion.div>
@@ -134,6 +172,8 @@ export default function App() {
         <Route path="/methods" element={<MethodsPage />} />
         <Route path="/innovation" element={<InnovationPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/valeurs" element={<ValuesPage />} />
+        <Route path="/fondateur" element={<FounderPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Route>
     </Routes>
