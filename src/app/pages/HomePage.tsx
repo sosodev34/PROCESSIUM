@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { ComponentPropsWithoutRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -68,18 +69,19 @@ type ScrollRevealItemProps = ComponentPropsWithoutRef<"div"> & {
 
 function ScrollRevealSection({ children, className, delay = 0, ...props }: ScrollRevealSectionProps) {
   const prefersReducedMotion = useReducedMotion();
+  const compactMotion = useCompactMotion();
 
   return (
     <motion.section
       className={className}
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 44, scale: 0.985 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: compactMotion ? 22 : 44, scale: compactMotion ? 1 : 0.985 }}
       whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: false, amount: 0.18, margin: "0px 0px -10% 0px" }}
+      viewport={{ once: false, amount: compactMotion ? 0.12 : 0.18, margin: compactMotion ? "0px 0px -4% 0px" : "0px 0px -10% 0px" }}
       transition={
         prefersReducedMotion
           ? undefined
           : {
-              duration: 0.78,
+              duration: compactMotion ? 0.56 : 0.78,
               delay,
               ease: [0.22, 1, 0.36, 1],
             }
@@ -101,15 +103,20 @@ function ScrollRevealItem({
   ...props
 }: ScrollRevealItemProps) {
   const prefersReducedMotion = useReducedMotion();
+  const compactMotion = useCompactMotion();
 
   const hiddenState =
-    from === "left"
+    compactMotion
+      ? { opacity: 0, y: Math.min(distance * 0.42, 24), scale: 1 }
+      : from === "left"
       ? { opacity: 0, x: -distance, scale: zoom ? 1.05 : 1 }
       : from === "right"
         ? { opacity: 0, x: distance, scale: zoom ? 1.05 : 1 }
         : { opacity: 0, y: distance * 0.72, scale: zoom ? 1.05 : 1 };
 
-  const visibleState = from === "left" || from === "right"
+  const visibleState = compactMotion
+    ? { opacity: 1, y: 0, scale: 1 }
+    : from === "left" || from === "right"
     ? { opacity: 1, x: 0, scale: 1 }
     : { opacity: 1, y: 0, scale: 1 };
 
@@ -118,12 +125,12 @@ function ScrollRevealItem({
       className={className}
       initial={prefersReducedMotion ? false : hiddenState}
       whileInView={prefersReducedMotion ? undefined : visibleState}
-      viewport={{ once: false, amount: 0.2, margin: "0px 0px -10% 0px" }}
+      viewport={{ once: false, amount: compactMotion ? 0.16 : 0.2, margin: compactMotion ? "0px 0px -4% 0px" : "0px 0px -10% 0px" }}
       transition={
         prefersReducedMotion
           ? undefined
           : {
-              duration: zoom ? 0.92 : 0.8,
+              duration: compactMotion ? 0.52 : zoom ? 0.92 : 0.8,
               delay,
               ease: [0.22, 1, 0.36, 1],
             }
@@ -133,6 +140,22 @@ function ScrollRevealItem({
       {children}
     </motion.div>
   );
+}
+
+function useCompactMotion() {
+  const [compactMotion, setCompactMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const handleChange = () => setCompactMotion(query.matches);
+
+    handleChange();
+    query.addEventListener("change", handleChange);
+
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+
+  return compactMotion;
 }
 
 export function HomePage() {
@@ -163,10 +186,10 @@ export function HomePage() {
 
   return (
     <>
-      <section className="bg-[#f7f8fb] pb-10 pt-[108px] md:pb-14 md:pt-[124px] lg:pb-[4.5rem]">
+      <section className="bg-[#f7f8fb] pb-10 pt-[104px] md:pb-14 md:pt-[124px] lg:pb-[4.5rem]">
         <SiteContainer>
-          <div className="grid overflow-hidden border-t border-[#dfe5ee] bg-white shadow-[0_24px_80px_rgba(17,24,39,0.07)] xl:grid-cols-[minmax(0,0.5fr)_minmax(360px,0.5fr)] xl:items-stretch">
-            <ScrollRevealItem className="flex min-h-[520px] flex-col justify-between px-5 py-7 sm:px-7 md:px-9 md:py-9 lg:px-10 xl:min-h-[620px]" from="left">
+          <div className="grid overflow-hidden border-t border-[#dfe5ee] bg-[#f7f8fb] xl:grid-cols-[minmax(0,0.5fr)_minmax(360px,0.5fr)] xl:items-stretch">
+            <ScrollRevealItem className="flex flex-col justify-between py-7 sm:px-2 md:min-h-[500px] md:px-4 md:py-9 lg:min-h-[560px] lg:px-6 xl:min-h-[620px]" from="left">
               <div>
                 <div className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
                   <span className="h-px w-8 bg-[#1473e6]" />
@@ -196,17 +219,19 @@ export function HomePage() {
               </div>
             </ScrollRevealItem>
 
-            <ScrollRevealItem className="relative min-h-[360px] overflow-hidden sm:min-h-[420px] lg:min-h-[520px] xl:min-h-[620px]" from="right" zoom>
-              <img
-                src={homeImage}
-                alt="Environnement de travail moderne dédié à la coordination d'opérations structurées."
-                className="absolute inset-0 h-full w-full object-cover"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,21,37,0.04),rgba(10,21,37,0.48))]" />
-              <div className="absolute inset-x-0 bottom-0 grid gap-0 bg-white/94 backdrop-blur-sm sm:grid-cols-3">
+            <ScrollRevealItem className="overflow-hidden md:pl-4 lg:pl-8 xl:pl-12" from="right" zoom>
+              <div className="relative aspect-[1.05/1] min-h-[260px] overflow-hidden sm:aspect-[1.35/1] md:min-h-[420px] lg:min-h-[520px] xl:min-h-[620px]">
+                <img
+                  src={homeImage}
+                  alt="Environnement de travail moderne dédié à la coordination d'opérations structurées."
+                  className="absolute inset-0 h-full w-full object-cover object-[50%_42%]"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,21,37,0.02),rgba(10,21,37,0.24))]" />
+              </div>
+              <div className="grid gap-0 bg-[#f7f8fb] sm:grid-cols-3 md:-mt-[1px]">
                 <div className="border-t border-[#dfe5ee] px-5 py-5 sm:border-r">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Enjeu</p>
                   <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Réduire les frictions et les ruptures de flux.</p>

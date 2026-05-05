@@ -113,9 +113,13 @@ export function ImageSplit({
 }: ImageSplitProps) {
   const targetRef = React.useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
+  const compactMotion = useCompactImageMotion();
+  const effectiveOffsetStep = compactMotion ? Math.min(offsetStep, 14) : offsetStep;
+  const effectiveBorderOpacity = compactMotion ? Math.min(initialBorderOpacity, 0.24) : initialBorderOpacity;
+  const effectiveViewportThreshold = compactMotion ? Math.max(viewportThreshold, 0.46) : viewportThreshold;
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start end", `start ${viewportThreshold * 100}%`],
+    offset: ["start end", `start ${effectiveViewportThreshold * 100}%`],
   });
   const borderRgb = React.useMemo(() => hexToRgb(borderColor), [borderColor]);
 
@@ -128,10 +132,10 @@ export function ImageSplit({
           borderColor={borderRgb}
           enableBorder={enableBorder}
           imageClassName={imageClassName}
-          initialBorderOpacity={initialBorderOpacity}
+          initialBorderOpacity={effectiveBorderOpacity}
           index={index}
           key={index}
-          offsetStep={offsetStep}
+          offsetStep={effectiveOffsetStep}
           prefersReducedMotion={Boolean(prefersReducedMotion)}
           scrollYProgress={scrollYProgress}
           sections={sections}
@@ -140,4 +144,20 @@ export function ImageSplit({
       ))}
     </div>
   );
+}
+
+function useCompactImageMotion() {
+  const [compactMotion, setCompactMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const handleChange = () => setCompactMotion(query.matches);
+
+    handleChange();
+    query.addEventListener("change", handleChange);
+
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+
+  return compactMotion;
 }
