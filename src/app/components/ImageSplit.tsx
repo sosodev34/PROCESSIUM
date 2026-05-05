@@ -124,7 +124,7 @@ export function ImageSplit({
   const borderRgb = React.useMemo(() => hexToRgb(borderColor), [borderColor]);
 
   return (
-    <div ref={targetRef} className={`relative flex w-full rounded-[inherit] ${className}`} {...props}>
+    <div ref={targetRef} data-image-split className={`relative flex w-full rounded-[inherit] ${className}`} {...props}>
       <img src={src} alt={alt} className="sr-only" loading="lazy" decoding="async" />
 
       {Array.from({ length: sections }).map((_, index) => (
