@@ -7,29 +7,33 @@ const galleryItems = [
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=82",
     alt: "Travail d'équipe autour d'un cadrage opérationnel et d'une coordination concrète.",
+    position: "50% 42%",
   },
   {
     image:
       "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=82",
     alt: "Environnement de développement et de structuration technique autour de l'automatisation.",
+    position: "50% 50%",
   },
   {
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=82",
     alt: "Technologie matérielle et infrastructure soutenant des systèmes fiables et continus.",
+    position: "50% 52%",
   },
   {
     image:
       "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1600&q=82",
     alt: "Univers visuel de code et de données évoquant l'innovation et les nouveaux usages du numérique.",
+    position: "50% 46%",
   },
 ];
 
 const areaClasses = [
-  "col-start-2 col-end-3 row-start-1 row-end-3",
-  "col-start-1 col-end-2 row-start-2 row-end-4",
-  "col-start-1 col-end-2 row-start-4 row-end-6",
-  "col-start-2 col-end-3 row-start-3 row-end-5",
+  "col-span-2 row-span-2 md:row-span-3 xl:col-span-7 xl:row-span-6",
+  "col-span-1 row-span-2 xl:col-start-8 xl:col-span-5 xl:row-span-3",
+  "col-span-1 row-span-2 xl:col-start-8 xl:col-span-2 xl:row-start-4 xl:row-span-3",
+  "col-span-2 row-span-2 xl:col-start-10 xl:col-span-3 xl:row-start-4 xl:row-span-3",
 ];
 
 const springTransition = {
@@ -55,16 +59,17 @@ const filterVariants: Variants = {
 
 function ContainerStagger({ transition, ...props }: HTMLMotionProps<"div">) {
   const prefersReducedMotion = useReducedMotion();
+  const compactMotion = useCompactMotion();
 
   return (
     <motion.div
       initial={prefersReducedMotion ? false : "hidden"}
       whileInView={prefersReducedMotion ? undefined : "visible"}
-      viewport={{ once: false, amount: 0.34, margin: "0px 0px -14% 0px" }}
+      viewport={{ once: false, amount: compactMotion ? 0.16 : 0.34, margin: compactMotion ? "0px 0px -4% 0px" : "0px 0px -14% 0px" }}
       transition={{
-        staggerChildren: 0.16,
-        delayChildren: 0.12,
-        duration: 0.3,
+        staggerChildren: compactMotion ? 0.08 : 0.16,
+        delayChildren: compactMotion ? 0.04 : 0.12,
+        duration: compactMotion ? 0.22 : 0.3,
         ...transition,
       }}
       {...props}
@@ -74,13 +79,14 @@ function ContainerStagger({ transition, ...props }: HTMLMotionProps<"div">) {
 
 function ContainerAnimated({ transition, ...props }: HTMLMotionProps<"div">) {
   const prefersReducedMotion = useReducedMotion();
+  const compactMotion = useCompactMotion();
 
   return (
     <motion.div
-      variants={prefersReducedMotion ? undefined : filterVariants}
+      variants={prefersReducedMotion ? undefined : compactMotion ? { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } } : filterVariants}
       transition={{
         ...springTransition,
-        duration: 0.34,
+        duration: compactMotion ? 0.26 : 0.34,
         ...transition,
       }}
       {...props}
@@ -91,7 +97,7 @@ function ContainerAnimated({ transition, ...props }: HTMLMotionProps<"div">) {
 function GalleryGrid({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={`grid grid-cols-2 grid-rows-[52px_160px_52px_160px_52px] gap-4 md:grid-rows-[56px_185px_56px_185px_56px] ${className}`}
+      className={`grid auto-rows-[104px] grid-cols-2 gap-3 sm:auto-rows-[132px] md:auto-rows-[138px] md:gap-4 xl:grid-cols-12 xl:grid-rows-[repeat(6,minmax(0,72px))] xl:auto-rows-auto ${className}`}
       {...props}
     />
   );
@@ -105,64 +111,75 @@ function GalleryGridCell({
   children: React.ReactNode;
 }) {
   const prefersReducedMotion = useReducedMotion();
+  const compactMotion = useCompactMotion();
 
   return (
     <motion.div
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: compactMotion ? 14 : 24, scale: compactMotion ? 1 : 0.97 }}
       whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: false, amount: 0.42, margin: "0px 0px -12% 0px" }}
+      viewport={{ once: false, amount: compactMotion ? 0.22 : 0.42, margin: compactMotion ? "0px 0px -4% 0px" : "0px 0px -12% 0px" }}
       transition={{
-        duration: 0.46,
-        delay: index * 0.08,
+        duration: compactMotion ? 0.42 : 0.68,
+        delay: compactMotion ? index * 0.035 : index * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className={`relative overflow-hidden rounded-[24px] border border-[#dfe5ee] bg-white shadow-[0_22px_60px_rgba(18,38,63,0.08)] dark:border-white/10 dark:bg-[#121b28] dark:shadow-[0_18px_48px_rgba(0,0,0,0.26)] ${areaClasses[index]}`}
+      className={`group relative overflow-hidden border border-[#dfe5ee] bg-[#f7f8fb] dark:border-[#3c414a] dark:bg-[#21252d] ${areaClasses[index]}`}
     >
       {children}
     </motion.div>
   );
 }
 
+function useCompactMotion() {
+  const [compactMotion, setCompactMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const handleChange = () => setCompactMotion(query.matches);
+
+    handleChange();
+    query.addEventListener("change", handleChange);
+
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+
+  return compactMotion;
+}
+
 export function HomeCtaGallerySection() {
   return (
-    <section className="bg-[#f7f8fb] pb-14 pt-6 dark:bg-[#0b1018] md:pb-20 md:pt-8">
+    <section className="bg-[#f7f8fb] pb-12 pt-6 dark:bg-[#12151d] md:pb-16 md:pt-8">
       <SiteContainer>
-        <div className="border-t border-[#dfe5ee] pt-8 dark:border-white/10 lg:pt-10">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(280px,0.4fr)_minmax(0,0.6fr)]">
-            <ContainerStagger className="lg:pr-8">
-              <ContainerAnimated className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085] dark:text-[#9fb0c9]">
-                <span className="h-px w-8 bg-[#1473e6] dark:bg-[#4e9bff]" />
+        <div className="border-t border-[#dfe5ee] pt-7 dark:border-[#3c414a] md:pt-8 lg:pt-9">
+          <div className="grid items-center gap-8 xl:grid-cols-[minmax(280px,0.4fr)_minmax(0,0.6fr)] xl:gap-10">
+            <ContainerStagger className="mx-auto max-w-[34rem] text-center xl:mx-0 xl:max-w-none xl:pr-6 xl:text-left">
+              <ContainerAnimated className="inline-flex items-center justify-center gap-3 text-[0.76rem] font-semibold uppercase tracking-[0.08em] text-[#667085] dark:text-[#a6acb5] md:text-[0.78rem] xl:justify-start">
+                <span className="h-px w-8 bg-[#1473e6] dark:bg-[#3573c0]" />
                 Échange initial
               </ContainerAnimated>
 
-              <ContainerAnimated className="mt-5 max-w-[11ch] text-[2rem] font-[650] leading-[1.03] text-[#111318] dark:text-white md:text-[2.85rem]">
-                Faire avancer un processus prioritaire.
+              <ContainerAnimated className="mx-auto mt-4 max-w-xl text-[0.97rem] font-semibold leading-7 text-[#111318] dark:text-white md:text-[1rem] xl:mx-0">
+                Un premier échange permet de qualifier le périmètre, le rythme et la forme de réponse adaptée.
               </ContainerAnimated>
 
-              <ContainerAnimated className="mt-5 max-w-xl text-[1.04rem] font-semibold leading-7 text-[#111318] dark:text-white">
-                Un premier échange permet d'identifier le bon périmètre, le bon rythme et la bonne forme de réponse.
-              </ContainerAnimated>
-
-              <ContainerAnimated className="mt-5 max-w-xl text-[1rem] leading-8 text-[#526073] dark:text-[#b4c1d4]">
-                Nous regardons le besoin, le contexte et les contraintes d'exécution pour qualifier ce qui peut réellement être simplifié, automatisé ou mieux structuré.
+              <ContainerAnimated className="mx-auto mt-4 max-w-xl text-[0.94rem] leading-7 text-[#526073] dark:text-[#f1f4f7] md:text-[0.98rem] md:leading-8 xl:mx-0">
+                Nous analysons le besoin, le contexte et les contraintes d'exécution afin d'identifier ce qui peut être simplifié, automatisé ou mieux structuré.
               </ContainerAnimated>
             </ContainerStagger>
 
-            <ContainerStagger className="relative lg:pl-8">
-              <ContainerAnimated className="pointer-events-none absolute left-[8%] top-[12%] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(20,115,230,0.16),transparent_70%)] dark:bg-[radial-gradient(circle,rgba(78,155,255,0.18),transparent_72%)]" />
-              <ContainerAnimated className="pointer-events-none absolute bottom-[3%] right-[10%] h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(20,115,230,0.12),transparent_72%)] dark:bg-[radial-gradient(circle,rgba(78,155,255,0.14),transparent_72%)]" />
-
-              <div className="relative overflow-hidden rounded-[32px] border border-[#e3e9f1] bg-[linear-gradient(180deg,rgba(255,255,255,0.74),rgba(245,248,252,0.88))] p-5 shadow-[0_24px_72px_rgba(18,38,63,0.08)] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))] dark:shadow-[0_26px_70px_rgba(0,0,0,0.24)] md:p-6">
+            <ContainerStagger className="relative xl:pl-6">
+              <div className="relative bg-[#f7f8fb] dark:bg-[#12151d] md:border md:border-[#e3e9f1] md:p-4 dark:md:border-[#3c414a]">
                 <GalleryGrid>
                   {galleryItems.map((item, index) => (
                     <GalleryGridCell index={index} key={item.image}>
                       <img
-                        className="h-full w-full object-cover object-center"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                         src={item.image}
                         alt={item.alt}
                         loading="lazy"
+                        style={{ objectPosition: item.position }}
                       />
-                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,19,24,0.02),rgba(17,19,24,0.22))] dark:bg-[linear-gradient(180deg,rgba(3,6,10,0.06),rgba(3,6,10,0.32))]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,19,24,0.00),rgba(17,19,24,0.24))] dark:bg-[linear-gradient(180deg,rgba(18,21,29,0.04),rgba(18,21,29,0.34))]" />
                     </GalleryGridCell>
                   ))}
                 </GalleryGrid>

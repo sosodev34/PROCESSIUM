@@ -186,29 +186,29 @@ export function HomePage() {
 
   return (
     <>
-      <section className="bg-[#f7f8fb] pb-10 pt-[104px] md:pb-14 md:pt-[124px] lg:pb-[4.5rem]">
+      <section className="bg-[#f7f8fb] pb-10 pt-[96px] md:pb-14 md:pt-[124px] lg:pb-[4.5rem]">
         <SiteContainer>
-          <div className="grid overflow-hidden border-t border-[#dfe5ee] bg-[#f7f8fb] xl:grid-cols-[minmax(0,0.5fr)_minmax(360px,0.5fr)] xl:items-stretch">
-            <ScrollRevealItem className="flex flex-col justify-between py-7 sm:px-2 md:min-h-[500px] md:px-4 md:py-9 lg:min-h-[560px] lg:px-6 xl:min-h-[620px]" from="left">
+          <div className="grid border-t border-[#dfe5ee] bg-[#f7f8fb] xl:grid-cols-[minmax(0,0.5fr)_minmax(360px,0.5fr)] xl:items-stretch">
+            <ScrollRevealItem className="mx-auto flex w-full max-w-[34rem] flex-col justify-between py-7 text-center sm:px-2 md:min-h-[500px] md:max-w-none md:px-4 md:py-9 md:text-left lg:min-h-[560px] lg:px-6 xl:min-h-[620px]" from="left">
               <div>
-                <div className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                <div className="inline-flex items-center justify-center gap-3 text-[0.76rem] font-semibold uppercase tracking-[0.08em] text-[#667085] md:justify-start md:text-[0.78rem]">
                   <span className="h-px w-8 bg-[#1473e6]" />
                   Accueil
                 </div>
-                <h1 className="mt-6 max-w-[13ch] text-[2.15rem] font-[300] leading-[1.02] text-[#111318] sm:text-[2.7rem] md:text-[3.35rem] lg:text-[3.95rem]">
+                <h1 className="mx-auto mt-5 max-w-[12.5ch] text-[clamp(2.05rem,10.8vw,2.78rem)] font-[300] leading-[1.07] text-[#111318] [text-wrap:balance] md:mx-0 md:mt-6 md:text-[3.35rem] md:leading-[1.02] lg:text-[3.95rem]">
                   Des systèmes conçus pour transformer l'exécution.
                 </h1>
               </div>
 
-              <div className="mt-8 max-w-2xl">
-                <p className="text-[1rem] leading-7 text-[#111318] md:text-[1.05rem] md:leading-8">
+              <div className="mx-auto mt-7 max-w-[32rem] md:mx-0 md:mt-8 md:max-w-2xl">
+                <p className="text-[0.98rem] leading-7 text-[#111318] md:text-[1.05rem] md:leading-8">
                   Processium conçoit des systèmes opérationnels sur mesure pour simplifier les processus, fiabiliser les flux et renforcer la qualité d'exécution.
                 </p>
-                <p className="mt-4 text-[0.95rem] leading-7 text-[#526073] md:text-[0.98rem] md:leading-8">
+                <p className="mt-4 text-[0.94rem] leading-7 text-[#526073] md:text-[0.98rem] md:leading-8">
                   Automatisation, outils internes et circulation de la donnée sont structurés à partir des usages réels, avec une mise en oeuvre lisible, ciblée et durable.
                 </p>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mx-auto mt-7 flex max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center md:mx-0 md:mt-8 md:justify-start">
                   <ShuffleButton to="/services" className="w-full justify-center sm:w-auto">
                     Découvrir les services
                   </ShuffleButton>
@@ -219,8 +219,8 @@ export function HomePage() {
               </div>
             </ScrollRevealItem>
 
-            <ScrollRevealItem className="overflow-hidden md:pl-4 lg:pl-8 xl:pl-12" from="right" zoom>
-              <div className="relative aspect-[1.05/1] min-h-[260px] overflow-hidden sm:aspect-[1.35/1] md:min-h-[420px] lg:min-h-[520px] xl:min-h-[620px]">
+            <ScrollRevealItem className="mx-auto w-full max-w-[35rem] overflow-hidden md:max-w-none md:pl-4 lg:pl-8 xl:pl-12" from="right" zoom>
+              <div className="relative aspect-[1.08/1] min-h-[230px] overflow-hidden sm:aspect-[1.35/1] sm:min-h-[300px] md:min-h-[420px] lg:min-h-[520px] xl:min-h-[620px]">
                 <img
                   src={homeImage}
                   alt="Environnement de travail moderne dédié à la coordination d'opérations structurées."
@@ -231,18 +231,18 @@ export function HomePage() {
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,21,37,0.02),rgba(10,21,37,0.24))]" />
               </div>
-              <div className="grid gap-0 bg-[#f7f8fb] sm:grid-cols-3 md:-mt-[1px]">
-                <div className="border-t border-[#dfe5ee] px-5 py-5 sm:border-r">
+              <div className="grid gap-0 bg-[#f7f8fb] text-center sm:grid-cols-3 sm:text-left md:-mt-[1px]">
+                <div className="border-t border-[#dfe5ee] px-4 py-4 sm:border-r sm:px-5 sm:py-5">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Enjeu</p>
-                  <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Réduire les frictions et les ruptures de flux.</p>
+                  <p className="mx-auto mt-2 max-w-[18rem] text-[0.95rem] font-semibold leading-6 text-[#111318] sm:mx-0 sm:mt-3 sm:text-[0.98rem]">Réduire les frictions et les ruptures de flux.</p>
                 </div>
-                <div className="border-t border-[#dfe5ee] px-5 py-5 sm:border-r">
+                <div className="border-t border-[#dfe5ee] px-4 py-4 sm:border-r sm:px-5 sm:py-5">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Réponse</p>
-                  <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Déployer des systèmes alignés sur les usages.</p>
+                  <p className="mx-auto mt-2 max-w-[18rem] text-[0.95rem] font-semibold leading-6 text-[#111318] sm:mx-0 sm:mt-3 sm:text-[0.98rem]">Déployer des systèmes alignés sur les usages.</p>
                 </div>
-                <div className="border-t border-[#dfe5ee] px-5 py-5">
+                <div className="border-t border-[#dfe5ee] px-4 py-4 sm:px-5 sm:py-5">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Impact</p>
-                  <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Renforcer la fiabilité, la visibilité et la continuité.</p>
+                  <p className="mx-auto mt-2 max-w-[18rem] text-[0.95rem] font-semibold leading-6 text-[#111318] sm:mx-0 sm:mt-3 sm:text-[0.98rem]">Renforcer la fiabilité, la visibilité et la continuité.</p>
                 </div>
               </div>
             </ScrollRevealItem>
@@ -253,24 +253,24 @@ export function HomePage() {
       <ScrollRevealSection className="bg-[#f7f8fb] pb-12 md:pb-16 lg:pb-20">
         <SiteContainer>
           <div className="grid gap-8 border-t border-[#dfe5ee] pt-8 md:gap-10 lg:grid-cols-[minmax(280px,0.42fr)_minmax(0,0.58fr)] lg:items-center lg:pt-10">
-            <ScrollRevealItem className="lg:pl-4 xl:pl-8" from="left">
+            <ScrollRevealItem className="mx-auto max-w-[34rem] text-center lg:max-w-none lg:pl-4 lg:text-left xl:pl-8" from="left">
               <h2 className="sr-only">Des opérations plus claires, plus fluides et mieux suivies.</h2>
-              <p className="max-w-2xl text-[0.98rem] leading-7 text-[#111318] md:text-[1rem] md:leading-8">
+              <p className="max-w-2xl text-[0.97rem] leading-7 text-[#111318] md:text-[1rem] md:leading-8">
                 Processium aide les entreprises à organiser leurs processus, leurs outils et leurs flux d'information avec plus de continuité, de visibilité et de maîtrise.
               </p>
-              <p className="max-w-2xl text-[0.95rem] leading-7 text-[#526073] md:text-[0.98rem] md:leading-8">
+              <p className="max-w-2xl text-[0.94rem] leading-7 text-[#526073] md:text-[0.98rem] md:leading-8">
                 L'objectif est clair : mieux faire circuler l'information, coordonner les actions et donner aux décideurs une lecture fiable de l'exécution.
               </p>
-              <div className="mt-7 grid gap-x-8 gap-y-5 border-t border-[#dfe5ee] pt-6 md:grid-cols-3">
-                <div className="border-l border-[#dfe5ee] pl-4">
+              <div className="mt-7 grid gap-x-8 gap-y-5 border-t border-[#dfe5ee] pt-6 sm:grid-cols-3">
+                <div className="border-t border-[#dfe5ee] pt-4 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Positionnement</p>
                   <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Transformation opérationnelle sur mesure</p>
                 </div>
-                <div className="border-l border-[#dfe5ee] pl-4">
+                <div className="border-t border-[#dfe5ee] pt-4 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Approche</p>
                   <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Des systèmes alignés sur les usages métier</p>
                 </div>
-                <div className="border-l border-[#dfe5ee] pl-4">
+                <div className="border-t border-[#dfe5ee] pt-4 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Ambition</p>
                   <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Des opérations plus fluides, fiables et pilotées</p>
                 </div>
@@ -278,7 +278,7 @@ export function HomePage() {
             </ScrollRevealItem>
 
             <div className="lg:pl-8 xl:pl-12">
-              <div className="mx-auto max-w-[31rem] bg-[#f7f8fb] pb-16 sm:max-w-[36rem] sm:pb-20 lg:ml-auto lg:mr-0 lg:max-w-[34rem] lg:pb-24 xl:max-w-[38rem]">
+              <div className="mx-auto max-w-[28rem] bg-[#f7f8fb] pb-10 sm:max-w-[36rem] sm:pb-20 lg:ml-auto lg:mr-0 lg:max-w-[34rem] lg:pb-24 xl:max-w-[38rem]">
                 <ImageSplit
                   src={companyOverviewImage}
                   alt="Architecture contemporaine traduisant une vision structurée, stable et ambitieuse de l'entreprise."
@@ -286,7 +286,7 @@ export function HomePage() {
                   offsetStep={28}
                   initialBorderOpacity={0.34}
                   viewportThreshold={0.34}
-                  className="aspect-[1.06/1] h-full w-full sm:aspect-[1.16/1] lg:aspect-[0.98/1]"
+                  className="aspect-[1.05/1] h-full w-full sm:aspect-[1.16/1] lg:aspect-[0.98/1]"
                   imageClassName="object-center"
                 />
               </div>
@@ -297,9 +297,9 @@ export function HomePage() {
 
       <ScrollRevealSection className="bg-[#f7f8fb] pb-12 md:pb-16 lg:pb-20">
         <SiteContainer>
-          <div className="border-t border-[#dfe5ee] pt-8 md:pt-10">
+          <div className="border-t border-[#dfe5ee] pt-8 text-center md:pt-10 lg:text-left">
             <div className="grid gap-8 lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-start">
-              <ScrollRevealItem className="max-w-2xl" from="left">
+              <ScrollRevealItem className="mx-auto max-w-[34rem] lg:mx-0 lg:max-w-2xl" from="left">
                 <p className="text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
                   Relation client
                 </p>
@@ -308,15 +308,15 @@ export function HomePage() {
                 </h2>
               </ScrollRevealItem>
 
-              <ScrollRevealItem className="grid gap-6" from="right">
+              <ScrollRevealItem className="mx-auto grid max-w-[34rem] gap-6 lg:mx-0 lg:max-w-none" from="right">
                 <p className="max-w-3xl text-[0.98rem] leading-7 text-[#526073] md:text-[1rem] md:leading-8">
                   Processium accompagne ses clients avec une approche structurée, transparente et orientée résultats. Chaque projet s'inscrit dans une logique de confiance et de continuité.
                 </p>
 
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-5 sm:grid-cols-3">
                   {clientTrustItems.map((item) => (
-                    <article key={item.title} className="border-l border-[#dfe5ee] pl-4">
-                      <span className="block h-px w-10 bg-[#1473e6]" />
+                    <article key={item.title} className="border-t border-[#dfe5ee] pt-5 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
+                      <span className="mx-auto block h-px w-10 bg-[#1473e6] sm:mx-0" />
                       <h3 className="mt-4 text-[1.1rem] font-[400] leading-[1.2] text-[#111318]">{item.title}</h3>
                       <p className="mt-3 text-[0.94rem] leading-7 text-[#526073]">{item.copy}</p>
                     </article>
@@ -353,14 +353,15 @@ export function HomePage() {
 
         <SiteContainer className="relative z-10">
           <div className="xl:hidden">
-            <div className="border border-white/10 bg-[rgba(7,12,22,0.68)] p-6 text-white backdrop-blur-sm shadow-[0_28px_80px_rgba(0,0,0,0.28)] md:p-8">
-              <p className="border-l-2 border-[#8bb7ff] pl-3 text-[0.78rem] font-semibold uppercase text-white/66">
+            <div className="border border-white/10 bg-[rgba(7,12,22,0.68)] px-5 py-6 text-center text-white backdrop-blur-sm md:p-8 md:text-left">
+              <p className="inline-flex items-center gap-3 text-[0.76rem] font-semibold uppercase tracking-[0.08em] text-white/66 md:text-[0.78rem]">
+                <span className="h-px w-8 bg-[#8bb7ff]" />
                 Vue d'ensemble
               </p>
-              <h2 className="mt-6 max-w-[12ch] text-[2.05rem] font-[650] leading-[1.04] text-white md:text-[3rem]">
+              <h2 className="mx-auto mt-5 max-w-[13ch] text-[clamp(1.85rem,9vw,2.35rem)] font-[650] leading-[1.08] text-white [text-wrap:balance] md:mx-0 md:mt-6 md:text-[3rem] md:leading-[1.04]">
                 Quatre dimensions structurent l'approche Processium.
               </h2>
-              <p className="mt-6 max-w-xl text-[0.98rem] leading-8 text-white/72">
+              <p className="mx-auto mt-5 max-w-[32rem] text-[0.94rem] leading-7 text-white/72 md:mx-0 md:mt-6 md:text-[0.98rem] md:leading-8">
                 Offre, domaines d'intervention, méthode et innovation présentent la manière dont Processium accompagne la transformation opérationnelle.
               </p>
             </div>
@@ -370,14 +371,14 @@ export function HomePage() {
                 <div key={item.to}>
                   <Link
                     to={item.to}
-                    className="group block border border-white/10 bg-[rgba(7,12,22,0.56)] p-6 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white/[0.04]"
+                    className="group block border border-white/10 bg-[rgba(7,12,22,0.56)] px-5 py-5 text-center text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white/[0.04] md:p-6 md:text-left"
                   >
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="grid gap-4 md:flex md:items-start md:justify-between">
                       <div>
                         <p className="text-[1.2rem] font-[650] md:text-[1.35rem]">{item.title}</p>
-                        <p className="mt-3 max-w-2xl text-[0.96rem] leading-7 text-white/68">{item.copy}</p>
+                        <p className="mx-auto mt-3 max-w-[30rem] text-[0.94rem] leading-7 text-white/68 md:mx-0 md:text-[0.96rem]">{item.copy}</p>
                       </div>
-                      <ArrowRight size={18} className="mt-1 shrink-0 text-[#8bb7ff] transition-transform duration-300 group-hover:translate-x-1" />
+                      <ArrowRight size={18} className="mx-auto shrink-0 text-[#8bb7ff] transition-transform duration-300 group-hover:translate-x-1 md:mx-0 md:mt-1" />
                     </div>
                   </Link>
                 </div>
