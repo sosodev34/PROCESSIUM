@@ -143,7 +143,9 @@ function ScrollRevealItem({
 }
 
 function useCompactMotion() {
-  const [compactMotion, setCompactMotion] = React.useState(false);
+  const [compactMotion, setCompactMotion] = React.useState(() =>
+    typeof window === "undefined" ? true : window.matchMedia("(max-width: 767px)").matches,
+  );
 
   React.useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -185,7 +187,7 @@ export function HomePage() {
   );
 
   return (
-    <>
+    <div className="home-page">
       <section className="bg-[#f7f8fb] pb-10 pt-[96px] md:pb-14 md:pt-[124px] lg:pb-[4.5rem]">
         <SiteContainer>
           <div className="grid border-t border-[#dfe5ee] bg-[#f7f8fb] xl:grid-cols-[minmax(0,0.5fr)_minmax(360px,0.5fr)] xl:items-stretch">
@@ -195,7 +197,7 @@ export function HomePage() {
                   <span className="h-px w-8 bg-[#1473e6]" />
                   Accueil
                 </div>
-                <h1 className="mx-auto mt-5 max-w-[12.5ch] text-[clamp(2.05rem,10.8vw,2.78rem)] font-[300] leading-[1.07] text-[#111318] [text-wrap:balance] md:mx-0 md:mt-6 md:text-[3.35rem] md:leading-[1.02] lg:text-[3.95rem]">
+                <h1 className="mx-auto mt-5 max-w-[20rem] text-[clamp(1.9rem,9.4vw,2.42rem)] font-[300] leading-[1.1] text-[#111318] [text-wrap:balance] md:mx-0 md:mt-6 md:max-w-[13ch] md:text-[3.35rem] md:leading-[1.02] lg:text-[3.95rem]">
                   Des systèmes conçus pour transformer l'exécution.
                 </h1>
               </div>
@@ -358,7 +360,7 @@ export function HomePage() {
                 <span className="h-px w-8 bg-[#8bb7ff]" />
                 Vue d'ensemble
               </p>
-              <h2 className="mx-auto mt-5 max-w-[13ch] text-[clamp(1.85rem,9vw,2.35rem)] font-[650] leading-[1.08] text-white [text-wrap:balance] md:mx-0 md:mt-6 md:text-[3rem] md:leading-[1.04]">
+              <h2 className="mx-auto mt-5 max-w-[20rem] text-[clamp(1.72rem,8vw,2.12rem)] font-[650] leading-[1.12] text-white [text-wrap:balance] md:mx-0 md:mt-6 md:max-w-[12ch] md:text-[3rem] md:leading-[1.04]">
                 Quatre dimensions structurent l'approche Processium.
               </h2>
               <p className="mx-auto mt-5 max-w-[32rem] text-[0.94rem] leading-7 text-white/72 md:mx-0 md:mt-6 md:text-[0.98rem] md:leading-8">
@@ -476,6 +478,6 @@ export function HomePage() {
       <HomeExpertiseDualSlider />
 
       <HomeCtaGallerySection />
-    </>
+    </div>
   );
 }

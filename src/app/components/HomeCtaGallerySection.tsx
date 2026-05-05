@@ -131,7 +131,9 @@ function GalleryGridCell({
 }
 
 function useCompactMotion() {
-  const [compactMotion, setCompactMotion] = React.useState(false);
+  const [compactMotion, setCompactMotion] = React.useState(() =>
+    typeof window === "undefined" ? true : window.matchMedia("(max-width: 767px)").matches,
+  );
 
   React.useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
