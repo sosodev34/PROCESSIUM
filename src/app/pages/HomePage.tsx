@@ -1,9 +1,10 @@
-import type * as React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { Link } from "react-router";
 import { HomeCtaGallerySection } from "../components/HomeCtaGallerySection";
 import { HomeExpertiseDualSlider } from "../components/HomeExpertiseDualSlider";
+import { ImageSplit } from "../components/ImageSplit";
 import { HyperspaceBackground } from "../components/badtz/HyperspaceBackground";
 import { ShuffleButton } from "../components/badtz/ShuffleButton";
 import { OpticsButton } from "../components/optics/button";
@@ -20,30 +21,45 @@ const previewLinks = [
   {
     title: "Services",
     to: "/services",
-    copy: "Des systèmes, des automatisations et des intégrations conçus pour soutenir l'exécution.",
+    copy: "Des systèmes, automatisations et intégrations conçus pour sécuriser l'exécution.",
   },
   {
     title: "Domaines",
     to: "/domains",
-    copy: "Des fonctions où la qualité des flux et de l'information conditionne directement la performance.",
+    copy: "Des environnements où la qualité des flux conditionne directement la performance.",
   },
   {
     title: "Méthode",
     to: "/methods",
-    copy: "Une démarche structurée pour analyser un besoin, cadrer une réponse et déployer un système durable.",
+    copy: "Une démarche structurée pour cadrer, déployer et pérenniser chaque solution.",
   },
   {
     title: "Innovation",
     to: "/innovation",
-    copy: "Une lecture des technologies émergentes orientée impact métier et transformation.",
+    copy: "Une lecture des technologies émergentes guidée par l'impact opérationnel.",
   },
 ];
 
-type ScrollRevealSectionProps = React.ComponentProps<"section"> & {
+const clientTrustItems = [
+  {
+    title: "Confiance",
+    copy: "Un cadre clair, confidentiel et transparent à chaque étape du projet.",
+  },
+  {
+    title: "Continuité",
+    copy: "Des solutions conçues pour durer, évoluer et rester maîtrisées.",
+  },
+  {
+    title: "Engagement",
+    copy: "Une attention constante portée aux priorités métier et aux résultats attendus.",
+  },
+];
+
+type ScrollRevealSectionProps = ComponentPropsWithoutRef<"section"> & {
   delay?: number;
 };
 
-type ScrollRevealItemProps = React.ComponentProps<"div"> & {
+type ScrollRevealItemProps = ComponentPropsWithoutRef<"div"> & {
   delay?: number;
   from?: "left" | "right" | "up";
   zoom?: boolean;
@@ -121,57 +137,89 @@ function ScrollRevealItem({
 
 export function HomePage() {
   useDocumentMeta(
-    "Processium | Transformation opérationnelle sur mesure",
-    "Processium accompagne les entreprises dans la conception de systèmes sur mesure destinés à simplifier les processus, réduire la charge manuelle et renforcer la qualité d'exécution."
+    "Processium | Transformation opérationnelle et systèmes sur mesure",
+    "Processium accompagne les entreprises dans la conception de systèmes sur mesure pour simplifier les processus, fiabiliser les flux et renforcer l'exécution.",
+    {
+      image: homeImage,
+      keywords: [
+        "transformation opérationnelle sur mesure",
+        "automatisation workflow",
+        "optimisation des processus",
+        "outils métiers internes",
+      ],
+      schema: {
+        "@type": "ProfessionalService",
+        name: "Processium",
+        description:
+          "Conception de systèmes opérationnels sur mesure, automatisation des processus et structuration des flux d'information.",
+        serviceType: "Transformation opérationnelle et automatisation des processus",
+        areaServed: {
+          "@type": "Country",
+          name: "France",
+        },
+      },
+    }
   );
 
   return (
     <>
-      <section className="bg-[#f7f8fb] pb-12 pt-[118px] md:pb-16 md:pt-[132px] lg:pb-20">
+      <section className="bg-[#f7f8fb] pb-10 pt-[108px] md:pb-14 md:pt-[124px] lg:pb-[4.5rem]">
         <SiteContainer>
-          <div className="grid gap-10 border-t border-[#dfe5ee] pt-8 xl:grid-cols-[minmax(0,0.52fr)_minmax(360px,0.48fr)] xl:items-center">
-            <ScrollRevealItem className="grid gap-7" from="left">
-              <p className="mb-6 border-l-2 border-[#1473e6] pl-3 text-[0.78rem] font-semibold uppercase text-[#667085]">
-                Systèmes opérationnels sur mesure
-              </p>
-              <h1 className="max-w-[13ch] font-[560] leading-[1.03] text-[#111318] text-[1.95rem] sm:text-[2.45rem] md:max-w-[12.2ch] md:text-[3rem] lg:text-[3.55rem]">
-                Des systèmes conçus pour transformer l'exécution opérationnelle.
-              </h1>
-              <p className="mt-5 max-w-2xl text-[1rem] leading-7 text-[#526073] md:text-[1.08rem] md:leading-8">
-                Processium accompagne les entreprises dans la conception d'automatisations, d'outils internes et de dispositifs de données destinés à simplifier les processus, réduire la charge manuelle et renforcer la qualité d'exécution.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <ShuffleButton to="/services" className="w-full justify-center sm:w-auto">
-                  Découvrir les services
-                </ShuffleButton>
-                <OpticsButton to="/contact" variant="decorations" className="w-full justify-center sm:w-auto">
-                  Contacter Processium
-                </OpticsButton>
+          <div className="grid overflow-hidden border-t border-[#dfe5ee] bg-white shadow-[0_24px_80px_rgba(17,24,39,0.07)] xl:grid-cols-[minmax(0,0.5fr)_minmax(360px,0.5fr)] xl:items-stretch">
+            <ScrollRevealItem className="flex min-h-[520px] flex-col justify-between px-5 py-7 sm:px-7 md:px-9 md:py-9 lg:px-10 xl:min-h-[620px]" from="left">
+              <div>
+                <div className="inline-flex items-center gap-3 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                  <span className="h-px w-8 bg-[#1473e6]" />
+                  Accueil
+                </div>
+                <h1 className="mt-6 max-w-[13ch] text-[2.15rem] font-[300] leading-[1.02] text-[#111318] sm:text-[2.7rem] md:text-[3.35rem] lg:text-[3.95rem]">
+                  Des systèmes conçus pour transformer l'exécution.
+                </h1>
               </div>
 
-              <div className="mt-3 grid gap-4 border-t border-[#dfe5ee] pt-7 md:grid-cols-3">
-                <div className="border-l border-[#dfe5ee] pl-4">
-                  <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Enjeu</p>
-                  <p className="mt-3 text-[1rem] font-semibold leading-6 text-[#111318]">Réduire la charge manuelle et les ruptures de flux.</p>
-                </div>
-                <div className="border-l border-[#dfe5ee] pl-4">
-                  <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Réponse</p>
-                  <p className="mt-3 text-[1rem] font-semibold leading-6 text-[#111318]">Concevoir des systèmes alignés sur les usages et les priorités.</p>
-                </div>
-                <div className="border-l border-[#dfe5ee] pl-4">
-                  <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Impact</p>
-                  <p className="mt-3 text-[1rem] font-semibold leading-6 text-[#111318]">Renforcer la fiabilité, la vitesse et la visibilité.</p>
+              <div className="mt-8 max-w-2xl">
+                <p className="text-[1rem] leading-7 text-[#111318] md:text-[1.05rem] md:leading-8">
+                  Processium conçoit des systèmes opérationnels sur mesure pour simplifier les processus, fiabiliser les flux et renforcer la qualité d'exécution.
+                </p>
+                <p className="mt-4 text-[0.95rem] leading-7 text-[#526073] md:text-[0.98rem] md:leading-8">
+                  Automatisation, outils internes et circulation de la donnée sont structurés à partir des usages réels, avec une mise en oeuvre lisible, ciblée et durable.
+                </p>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <ShuffleButton to="/services" className="w-full justify-center sm:w-auto">
+                    Découvrir les services
+                  </ShuffleButton>
+                  <OpticsButton to="/contact" variant="decorations" className="w-full justify-center hover:translate-y-0 sm:w-auto">
+                    Contacter Processium
+                  </OpticsButton>
                 </div>
               </div>
             </ScrollRevealItem>
 
-            <ScrollRevealItem className="relative min-h-[320px] overflow-hidden bg-[#e9eef5] md:min-h-[430px] lg:min-h-[500px]" from="right" zoom>
+            <ScrollRevealItem className="relative min-h-[360px] overflow-hidden sm:min-h-[420px] lg:min-h-[520px] xl:min-h-[620px]" from="right" zoom>
               <img
                 src={homeImage}
                 alt="Environnement de travail moderne dédié à la coordination d'opérations structurées."
-                className="h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
                 loading="eager"
+                decoding="async"
+                fetchPriority="high"
               />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,21,37,0.04),rgba(10,21,37,0.48))]" />
+              <div className="absolute inset-x-0 bottom-0 grid gap-0 bg-white/94 backdrop-blur-sm sm:grid-cols-3">
+                <div className="border-t border-[#dfe5ee] px-5 py-5 sm:border-r">
+                  <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Enjeu</p>
+                  <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Réduire les frictions et les ruptures de flux.</p>
+                </div>
+                <div className="border-t border-[#dfe5ee] px-5 py-5 sm:border-r">
+                  <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Réponse</p>
+                  <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Déployer des systèmes alignés sur les usages.</p>
+                </div>
+                <div className="border-t border-[#dfe5ee] px-5 py-5">
+                  <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Impact</p>
+                  <p className="mt-3 text-[0.98rem] font-semibold leading-6 text-[#111318]">Renforcer la fiabilité, la visibilité et la continuité.</p>
+                </div>
+              </div>
             </ScrollRevealItem>
           </div>
         </SiteContainer>
@@ -179,16 +227,14 @@ export function HomePage() {
 
       <ScrollRevealSection className="bg-[#f7f8fb] pb-12 md:pb-16 lg:pb-20">
         <SiteContainer>
-          <div className="grid gap-8 border-t border-[#dfe5ee] pt-8 lg:grid-cols-[minmax(280px,0.42fr)_minmax(0,0.58fr)] lg:items-center lg:pt-10">
+          <div className="grid gap-8 border-t border-[#dfe5ee] pt-8 md:gap-10 lg:grid-cols-[minmax(280px,0.42fr)_minmax(0,0.58fr)] lg:items-center lg:pt-10">
             <ScrollRevealItem className="lg:pl-4 xl:pl-8" from="left">
-              <p className="border-l-2 border-[#1473e6] pl-3 text-[0.78rem] font-semibold uppercase text-[#667085]">
-                Qui nous sommes
+              <h2 className="sr-only">Des opérations plus claires, plus fluides et mieux suivies.</h2>
+              <p className="max-w-2xl text-[0.98rem] leading-7 text-[#111318] md:text-[1rem] md:leading-8">
+                Processium aide les entreprises à organiser leurs processus, leurs outils et leurs flux d'information avec plus de continuité, de visibilité et de maîtrise.
               </p>
-              <h2 className="max-w-[12ch] text-[2.2rem] font-[650] leading-[1.02] text-[#111318] md:text-[3.25rem] lg:text-[4rem]">
-                Une entreprise focalisée sur la qualité des opérations.
-              </h2>
-              <p className="max-w-2xl text-[1.02rem] leading-8 text-[#526073]">
-                Processium intervient à la croisée des enjeux métier, des flux d'information et des systèmes techniques. Notre ambition est d'aider les organisations à structurer leurs processus critiques avec des solutions lisibles, ciblées et durables.
+              <p className="max-w-2xl text-[0.95rem] leading-7 text-[#526073] md:text-[0.98rem] md:leading-8">
+                L'objectif est clair : mieux faire circuler l'information, coordonner les actions et donner aux décideurs une lecture fiable de l'exécution.
               </p>
               <div className="mt-7 grid gap-x-8 gap-y-5 border-t border-[#dfe5ee] pt-6 md:grid-cols-3">
                 <div className="border-l border-[#dfe5ee] pl-4">
@@ -197,25 +243,62 @@ export function HomePage() {
                 </div>
                 <div className="border-l border-[#dfe5ee] pl-4">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Approche</p>
-                  <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Des systèmes alignés sur les usages de l'entreprise</p>
+                  <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Des systèmes alignés sur les usages métier</p>
                 </div>
                 <div className="border-l border-[#dfe5ee] pl-4">
                   <p className="text-[0.76rem] font-semibold uppercase text-[#8a94a6]">Ambition</p>
-                  <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Des opérations plus fluides, plus fiables et mieux pilotées</p>
+                  <p className="mt-2 text-[1rem] font-semibold text-[#111318]">Des opérations plus fluides, fiables et pilotées</p>
                 </div>
               </div>
             </ScrollRevealItem>
 
-            <ScrollRevealItem className="lg:pl-8 xl:pl-12" from="right" zoom>
-              <div className="overflow-hidden bg-[#e9eef5]">
-                <img
+            <div className="lg:pl-8 xl:pl-12">
+              <div className="mx-auto max-w-[31rem] bg-[#f7f8fb] pb-16 sm:max-w-[36rem] sm:pb-20 lg:ml-auto lg:mr-0 lg:max-w-[34rem] lg:pb-24 xl:max-w-[38rem]">
+                <ImageSplit
                   src={companyOverviewImage}
                   alt="Architecture contemporaine traduisant une vision structurée, stable et ambitieuse de l'entreprise."
-                  className="aspect-[0.95/1] h-full w-full object-cover"
-                  loading="eager"
+                  sections={8}
+                  offsetStep={28}
+                  initialBorderOpacity={0.34}
+                  viewportThreshold={0.34}
+                  className="aspect-[1.06/1] h-full w-full sm:aspect-[1.16/1] lg:aspect-[0.98/1]"
+                  imageClassName="object-center"
                 />
               </div>
-            </ScrollRevealItem>
+            </div>
+          </div>
+        </SiteContainer>
+      </ScrollRevealSection>
+
+      <ScrollRevealSection className="bg-[#f7f8fb] pb-12 md:pb-16 lg:pb-20">
+        <SiteContainer>
+          <div className="border-t border-[#dfe5ee] pt-8 md:pt-10">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-start">
+              <ScrollRevealItem className="max-w-2xl" from="left">
+                <p className="text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#667085]">
+                  Relation client
+                </p>
+                <h2 className="mt-4 text-[1.75rem] font-[300] leading-[1.12] text-[#111318] md:text-[2.25rem] lg:text-[2.65rem]">
+                  Une relation client fondée sur la confiance.
+                </h2>
+              </ScrollRevealItem>
+
+              <ScrollRevealItem className="grid gap-6" from="right">
+                <p className="max-w-3xl text-[0.98rem] leading-7 text-[#526073] md:text-[1rem] md:leading-8">
+                  Processium accompagne ses clients avec une approche structurée, transparente et orientée résultats. Chaque projet s'inscrit dans une logique de confiance et de continuité.
+                </p>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                  {clientTrustItems.map((item) => (
+                    <article key={item.title} className="border-l border-[#dfe5ee] pl-4">
+                      <span className="block h-px w-10 bg-[#1473e6]" />
+                      <h3 className="mt-4 text-[1.1rem] font-[400] leading-[1.2] text-[#111318]">{item.title}</h3>
+                      <p className="mt-3 text-[0.94rem] leading-7 text-[#526073]">{item.copy}</p>
+                    </article>
+                  ))}
+                </div>
+              </ScrollRevealItem>
+            </div>
           </div>
         </SiteContainer>
       </ScrollRevealSection>
@@ -253,7 +336,7 @@ export function HomePage() {
                 Quatre dimensions structurent l'approche Processium.
               </h2>
               <p className="mt-6 max-w-xl text-[0.98rem] leading-8 text-white/72">
-                Offre, domaines d'intervention, méthode et innovation donnent une vue d'ensemble de la manière dont Processium accompagne la transformation opérationnelle.
+                Offre, domaines d'intervention, méthode et innovation présentent la manière dont Processium accompagne la transformation opérationnelle.
               </p>
             </div>
 
@@ -277,7 +360,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="relative hidden min-h-[720px] xl:block">
+          <div className="relative hidden min-h-[680px] xl:block">
             <div className="absolute left-1/2 top-1/2 h-[29rem] w-[29rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/8" />
             <div className="absolute left-1/2 top-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.05]" />
             <div className="absolute left-1/2 top-1/2 h-[11rem] w-[11rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#7da6ff]/10 blur-3xl" />
@@ -296,7 +379,7 @@ export function HomePage() {
                   Quatre dimensions structurent l'approche Processium.
                 </h2>
                 <p className="mt-6 max-w-lg text-[1rem] leading-8 text-white/72">
-                  Offre, domaines d'intervention, méthode et innovation donnent une vue d'ensemble de la manière dont Processium accompagne la transformation opérationnelle.
+                  Offre, domaines d'intervention, méthode et innovation présentent la manière dont Processium accompagne la transformation opérationnelle.
                 </p>
               </div>
             </div>
