@@ -183,8 +183,10 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-[#05070d] pb-1 md:pb-3 lg:pb-4">
-        <ServicesSparklesHero />
+      <section className="bg-[#f7f8fb] py-8 md:py-10 lg:py-12">
+        <SiteContainer>
+          <ServicesSparklesHero />
+        </SiteContainer>
       </section>
 
       <section className="bg-[#f7f8fb] py-7 md:py-10 lg:py-12">
