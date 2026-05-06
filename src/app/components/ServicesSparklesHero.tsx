@@ -16,12 +16,11 @@ export function ServicesSparklesHero({
   return (
     <div
       className={cn(
-        "relative flex min-h-[230px] w-full flex-col items-center justify-center overflow-hidden bg-[#05070d] px-5 py-10 sm:min-h-[270px] md:min-h-[320px] lg:min-h-[360px]",
+        "relative flex min-h-[230px] w-full flex-col items-center justify-center overflow-hidden px-5 py-10 sm:min-h-[270px] md:min-h-[320px] lg:min-h-[360px]",
         className
       )}
       {...props}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,115,230,0.24),transparent_34%),linear-gradient(180deg,rgba(5,7,13,0),rgba(5,7,13,0.72))]" />
       <div className="relative z-20 mx-auto max-w-[42rem] text-center">
         <p className="inline-flex items-center justify-center gap-3 text-[0.74rem] font-semibold uppercase tracking-[0.08em] text-white/58 md:text-[0.78rem]">
           <span className="h-px w-8 bg-[#4b9cff]" />

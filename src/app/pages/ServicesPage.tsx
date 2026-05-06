@@ -183,8 +183,9 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-[#f7f8fb] py-8 md:py-10 lg:py-12">
-        <SiteContainer>
+      <section className="relative overflow-hidden bg-[#05070d] py-8 md:py-10 lg:py-12">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,115,230,0.24),transparent_34%),linear-gradient(180deg,rgba(5,7,13,0),rgba(5,7,13,0.72))]"></div>
+        <SiteContainer className="relative z-10">
           <ServicesSparklesHero />
         </SiteContainer>
       </section>
