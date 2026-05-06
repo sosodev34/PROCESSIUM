@@ -183,18 +183,10 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-[#f7f8fb] py-8 md:py-10 lg:py-12">
-        <SiteContainer>
-          <div className="relative overflow-hidden border border-[#172337] bg-[#05070d] shadow-[0_24px_80px_rgba(17,24,39,0.12)]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,115,230,0.24),transparent_34%),linear-gradient(180deg,rgba(5,7,13,0),rgba(5,7,13,0.72))]"></div>
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#4b9cff]/70 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-px bg-white/8" />
-            <ServicesSparklesHero
-              title="Services"
-              copy="Automatiser, relier et structurer les flux qui soutiennent l'exécution quotidienne, avec une lecture claire des priorités et des systèmes utiles."
-              className="relative z-10"
-            />
-          </div>
+      <section className="relative overflow-hidden bg-[#05070d] py-8 md:py-10 lg:py-12">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,115,230,0.24),transparent_34%),linear-gradient(180deg,rgba(5,7,13,0),rgba(5,7,13,0.72))]"></div>
+        <SiteContainer className="relative z-10">
+          <ServicesSparklesHero />
         </SiteContainer>
       </section>
 
