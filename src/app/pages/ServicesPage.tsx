@@ -170,14 +170,17 @@ export function ServicesPage() {
           </div>
 
           <SiteContainer className="relative">
-            <div className="-mt-20 mb-8 max-w-[40rem] bg-[linear-gradient(225deg,#1473e6,#0d4b91)] px-5 py-5 text-white shadow-[0_25px_100px_rgba(0,0,0,0.15)] md:-mt-28 md:px-6 md:py-6 lg:-mt-32 lg:px-7">
-              <p className="text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-white/72">Services</p>
-              <h1 className="mt-3 max-w-[13ch] text-[1.75rem] font-[300] leading-[1.05] md:text-[2.2rem] lg:text-[2.5rem]">
-                Des services conçus pour fluidifier l'exécution.
-              </h1>
-              <p className="mt-3 max-w-[44ch] text-[0.94rem] leading-6 text-white/82">
-                Processium conçoit des automatisations, outils internes et intégrations pour rendre les opérations plus fiables.
-              </p>
+            <div className="relative -mt-20 mb-8 max-w-[40rem] overflow-hidden bg-[#05070d] px-5 py-5 text-white shadow-[0_25px_100px_rgba(0,0,0,0.15)] md:-mt-28 md:px-6 md:py-6 lg:-mt-32 lg:px-7">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,115,230,0.24),transparent_34%),linear-gradient(180deg,rgba(5,7,13,0),rgba(5,7,13,0.72))]" />
+              <div className="relative z-10">
+                <p className="text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-white/72">Services</p>
+                <h1 className="mt-3 max-w-[13ch] text-[1.75rem] font-[300] leading-[1.05] md:text-[2.2rem] lg:text-[2.5rem]">
+                  Des services conçus pour fluidifier l'exécution.
+                </h1>
+                <p className="mt-3 max-w-[44ch] text-[0.94rem] leading-6 text-white/82">
+                  Processium conçoit des automatisations, outils internes et intégrations pour rendre les opérations plus fiables.
+                </p>
+              </div>
             </div>
           </SiteContainer>
         </div>
